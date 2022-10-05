@@ -4,7 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FrameFakeOSDesktop extends JFrame {
-    private JPanel contentPane = new JPanel();
+    //private JPanel contentPane = new JPanel();
+    private CustomContentPane contentPane = CustomContentPane.getInstance();
     private DesktopPanel desktopPanel = new DesktopPanel();
     private TaskBarPanel taskBarPanel = new TaskBarPanel();
 
@@ -34,6 +35,7 @@ public class FrameFakeOSDesktop extends JFrame {
         setTitle("desktop prototype");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(1280, 720));
+        setLocationRelativeTo(null); // centers a frame onscreen
 
         // Display the window.
         pack();

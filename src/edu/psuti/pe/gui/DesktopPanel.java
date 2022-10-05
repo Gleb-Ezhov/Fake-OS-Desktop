@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DesktopPanel {
-    private final int rows = 9;
-    private final int cols = 17;
+    private final int rows = 9;  // 9 строк
+    private final int cols = 17; // 17 иконок в строке
 
     private JPanel panel = new JPanel(new GridLayout(rows, cols));
 
     public DesktopPanel() {
+        panel.setOpaque(false);
         fillLayout();
     }
 
