@@ -3,6 +3,7 @@ package edu.psuti.pe.gui;
 import javax.swing.*;
 import java.awt.*;
 
+// Контейнер верхнего уровня (корневой) для окна программы
 public class FrameFakeOSDesktop extends JFrame {
     //private JPanel contentPane = new JPanel();
     private CustomContentPane contentPane = CustomContentPane.getInstance();
@@ -16,7 +17,7 @@ public class FrameFakeOSDesktop extends JFrame {
     }
 
     /**
-     * Установка в качестве панели содержимого JPanel объекта, чтобы работать
+     * Установка в качестве панели содержимого кастомного JPanel объекта, чтобы работать
      * с ней как с JComponent типом, а не Container. Используется BoxLayout способ компоновки.
      */
     private void setCustomContentPane() {
@@ -35,7 +36,6 @@ public class FrameFakeOSDesktop extends JFrame {
         setTitle("desktop prototype");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(1280, 720));
-        setLocationRelativeTo(null); // centers a frame onscreen
 
         // Display the window.
         pack();

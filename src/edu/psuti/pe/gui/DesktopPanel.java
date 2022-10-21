@@ -11,7 +11,7 @@ public class DesktopPanel {
 
     public DesktopPanel() {
         panel.setOpaque(false);
-        fillLayout();
+        //fillLayout();
     }
 
     public JPanel getPanel() {
