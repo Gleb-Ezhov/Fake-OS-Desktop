@@ -31,6 +31,7 @@ public class CustomContentPane extends JPanel implements ComponentListener {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -52,7 +53,10 @@ public class CustomContentPane extends JPanel implements ComponentListener {
         System.out.println(e.getComponent().getClass().getName() + " --- Resized ");
         System.out.println("Content Pane new size is " + getWidth() + " by " + getHeight());
         // Resize background image to fit content pane
-        backgroundImage = imageHelper.getSubImageFromBufferedImage("wallpapers1920x1080.png", 0, 1000, 2570, getHeight());
+        backgroundImage = imageHelper.getSubImageFromBufferedImage("wallpapers1920x1080.png", 0, 1000, getWidth(), getHeight());
+        // Строку ниже можно будет использовать для скейла изображения при необходимости.
+        // Во время скейла нужно соблюдать пропорции, чтобы избежать искажений.
+        //backgroundImage = backgroundImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
     }
 
     public void componentShown(ComponentEvent e) {

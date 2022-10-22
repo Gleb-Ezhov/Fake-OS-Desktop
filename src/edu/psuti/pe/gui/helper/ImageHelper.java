@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.net.URL;
 
-// todo Загрузка изображений в отдельном потоке.
-// todo В случае отсутствия изображения отрисовывать иконку-заглушку.
 public class ImageHelper {
     private static ImageHelper imageHelper;
     // префиксы пути до папки с ресурсами:
@@ -31,7 +29,7 @@ public class ImageHelper {
      * @param description Подпись к изображению для скрин ридеров.
      * @return ImageIcon для переданного пути изображения; null, если файл не был найден.
      */
-    public ImageIcon createImageIcon(String imageName, String description) {
+    public Icon createImageIcon(String imageName, String description) {
         String resultPath = pathPrefixURL + imageName;
         // поиск ресурса картинки и его возрат в виде Uniform Resource Locator указателя
         URL imgURL = getClass().getResource(resultPath);

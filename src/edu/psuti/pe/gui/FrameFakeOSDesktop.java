@@ -5,10 +5,13 @@ import java.awt.*;
 
 // Контейнер верхнего уровня (корневой) для окна программы
 public class FrameFakeOSDesktop extends JFrame {
-    //private JPanel contentPane = new JPanel();
     private CustomContentPane contentPane = CustomContentPane.getInstance();
     private DesktopPanel desktopPanel = new DesktopPanel();
     private TaskBarPanel taskBarPanel = new TaskBarPanel();
+
+    // Устройство для вывода изображения на дисплей (для включения fullscreen режима)
+    private static GraphicsDevice device = GraphicsEnvironment
+            .getLocalGraphicsEnvironment().getScreenDevices()[0];
 
     public FrameFakeOSDesktop() {
         System.out.println("Initializing objects...");
@@ -39,6 +42,7 @@ public class FrameFakeOSDesktop extends JFrame {
 
         // Display the window.
         pack();
+        //device.setFullScreenWindow(this);
         setVisible(true);
     }
 }
