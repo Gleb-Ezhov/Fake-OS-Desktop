@@ -37,8 +37,8 @@ public class MissingIcon implements Icon {
         g2d.setColor(Color.RED);
 
         g2d.setStroke(stroke);
-        g2d.drawLine(x +10, y + 10, x + width -10, y + height -10);
-        g2d.drawLine(x +10, y + height -10, x + width -10, y + 10);
+        g2d.drawLine(x + 10, y + 10, x + width - 10, y + height - 10);
+        g2d.drawLine(x + 10, y + height - 10, x + width - 10, y + 10);
 
         g2d.dispose();
     }

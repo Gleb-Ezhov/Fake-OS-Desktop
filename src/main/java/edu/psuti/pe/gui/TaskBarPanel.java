@@ -20,7 +20,7 @@ public class TaskBarPanel {
         tempStartButton.setMaximumSize(new Dimension(45, 45));
         tempStartButton.setPreferredSize(new Dimension(45, 45));
 
-        SystemBlockOffWidgetPanel blockOffWidget = new SystemBlockOffWidgetPanel();
+        SystemBlockShutdownWidgetPanel blockOffWidget = new SystemBlockShutdownWidgetPanel();
 
         panel.add(tempStartButton);
         panel.add(Box.createHorizontalGlue());
