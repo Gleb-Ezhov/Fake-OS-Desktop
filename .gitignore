@@ -8,6 +8,9 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+# Maven related files:
+/target/
+
 ### Eclipse ###
 .apt_generated
 .classpath
