@@ -43,9 +43,8 @@ public class SystemBlockShutdownWidgetPanel {
         blockPanel.setPreferredSize(new Dimension(23, 23));
         blockPanel.setMaximumSize(new Dimension(23, 23));
 
-        ImageIcon lockIcon = (ImageIcon)imageHelper.createImageIconFromSvg("system-lock-screen.svg", "Lock Screen Button",
-                23, 23);
-        blockLabel.setIcon(lockIcon);
+        blockLabel.setIcon(imageHelper.createImageIconFromSvg("system-lock-screen.svg", "Lock Screen Button",
+                23, 23));
 
         blockPanel.add(blockLabel);
     }
@@ -65,6 +64,7 @@ public class SystemBlockShutdownWidgetPanel {
         shutdownPanel.add(shutdownLabel);
     }
 
+    // todo сделать общий TaskBarMouseListener, который будет подсвечивать элементы, а событие нажатия можно переопределять в подклассе (цель - избавиться от повторяющегося кода в слушателях)
     // КЛАССЫ-СЛУШАТЕЛИ СОБЫТИЙ ДЛЯ ПАНЕЛЕЙ БЛКИРОВКИ ЭКРАНА И ВЫКЛЮЧЕНИЯ
 
     class BlockPanelMouseListener implements MouseListener {
