@@ -1,5 +1,7 @@
 package edu.psuti.pe.gui;
 
+import edu.psuti.pe.gui.taskbar.TaskBarPanel;
+
 import javax.swing.*;
 import java.awt.*;
 

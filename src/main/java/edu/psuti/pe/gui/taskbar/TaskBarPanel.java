@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui;
+package edu.psuti.pe.gui.taskbar;
 
 import edu.psuti.pe.gui.helper.ImageHelper;
 
@@ -39,7 +39,7 @@ public class TaskBarPanel {
 
     private void setupStartButtonPanel() {
         startButtonPanel.setOpaque(false);
-        startButtonPanel.addMouseListener(new StartButtonPanelMouseListener());
+        startButtonPanel.addMouseListener(new TaskBarMouseListener());
         startButtonPanel.setLayout(new BoxLayout(startButtonPanel, BoxLayout.PAGE_AXIS));
 
         startButtonPanel.setMinimumSize(new Dimension(45, 45));
@@ -51,41 +51,5 @@ public class TaskBarPanel {
                 35, 35));
 
         startButtonPanel.add(startButtonLabel);
-    }
-
-    class StartButtonPanelMouseListener implements MouseListener {
-        @Override
-        public void mouseClicked(MouseEvent e) {}
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            JComponent thisComponent = (JComponent) e.getComponent();
-            thisComponent.setOpaque(true);
-            thisComponent.setBackground(new Color(144, 150, 156));
-            thisComponent.repaint();
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            JComponent thisComponent = (JComponent) e.getComponent();
-            thisComponent.setOpaque(true);
-            thisComponent.setBackground(new Color(184, 192, 200));
-            thisComponent.repaint();
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            JComponent thisComponent = (JComponent) e.getComponent();
-            thisComponent.setOpaque(true);
-            thisComponent.setBackground(new Color(184, 192, 200));
-            thisComponent.repaint();
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            JComponent thisComponent = (JComponent) e.getComponent();
-            thisComponent.setOpaque(false);
-            thisComponent.repaint();
-        }
     }
 }
