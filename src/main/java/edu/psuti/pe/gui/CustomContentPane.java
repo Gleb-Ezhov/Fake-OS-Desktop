@@ -18,6 +18,8 @@ public class CustomContentPane extends JPanel implements ComponentListener {
     private Image backgroundImage;
 
     private CustomContentPane() {
+        // BoxLayout.PAGE_AXIS включает режим компоновки элементов "сверху вниз"
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         backgroundImage = imageHelper.getSubImageFromBufferedImage("wallpapers1920x1080.png", 0, 1000, 2570, 1080);
         addComponentListener(this);
     }
