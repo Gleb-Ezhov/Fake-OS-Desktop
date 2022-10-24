@@ -7,7 +7,8 @@ public class DesktopPanel {
     private final int rows = 9;  // 9 строк
     private final int cols = 17; // 17 иконок в строке
 
-    private JPanel panel = new JPanel(new GridLayout(rows, cols));
+//    private JPanel panel = new JPanel(new GridLayout(rows, cols));
+    private JPanel panel = new JPanel(null); // absolute positioning
 
     public DesktopPanel() {
         panel.setOpaque(false);
