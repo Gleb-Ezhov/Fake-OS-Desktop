@@ -1,7 +1,8 @@
 package edu.psuti.pe.gui;
 
+import edu.psuti.pe.gui.helper.ComponentMover;
+import edu.psuti.pe.gui.helper.ComponentResizer;
 import edu.psuti.pe.gui.helper.ImageHelper;
-import edu.psuti.pe.gui.taskbar.TaskBarPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +10,10 @@ import java.awt.*;
 // Контейнер верхнего уровня (корневой) для окна программы
 public class FrameFakeOSDesktop extends JFrame {
     ImageHelper imageHelper = ImageHelper.getInstance();
+    // Кастомная панель контента с фоновой картинкой для всего раб. стола
     private CustomContentPane contentPane = CustomContentPane.getInstance();
+    // Панель рабочего стола с послойным управлением всеми элементами
     private DesktopPanel desktopPanel = new DesktopPanel();
-    private TaskBarPanel taskBarPanel = new TaskBarPanel();
 
     // Устройство для вывода изображения на дисплей (для включения fullscreen режима)
     private static GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
@@ -20,7 +22,7 @@ public class FrameFakeOSDesktop extends JFrame {
         System.out.println("Initializing objects...");
         setCustomContentPane();
         addChildrenComponents();
-        //experimentingWithMovablePanels();
+        experimentingWithMovablePanels();
     }
 
     private void experimentingWithMovablePanels() {
@@ -29,7 +31,7 @@ public class FrameFakeOSDesktop extends JFrame {
         movablePanel.setBackground(Color.RED);
         movablePanel.setLayout(new BoxLayout(movablePanel, BoxLayout.PAGE_AXIS));
         movablePanel.setBounds(10, 10, 200, 400);
-        desktopPanel.getPanel().add(movablePanel);
+        desktopPanel.getWorkspacePanel().add(movablePanel);
 
         // передвигатель
         ComponentMover componentMover = new ComponentMover();
@@ -51,7 +53,6 @@ public class FrameFakeOSDesktop extends JFrame {
 
     private void addChildrenComponents() {
         contentPane.add(desktopPanel.getPanel());
-        contentPane.add(taskBarPanel.getPanel());
     }
 
     public void createAndShowGUI() {
@@ -62,7 +63,8 @@ public class FrameFakeOSDesktop extends JFrame {
 
         // Display the window.
         pack();
-        //device.setFullScreenWindow(this);
+        boolean isFullScreen = false; // возможно будет вынесен отдельный параметр в GUI для этого
+        if (isFullScreen == true) device.setFullScreenWindow(this);
         setVisible(true);
     }
 }

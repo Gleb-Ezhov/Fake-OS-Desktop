@@ -4,37 +4,47 @@ import edu.psuti.pe.gui.helper.ImageHelper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class TaskBarPanel {
     private final ImageHelper imageHelper = ImageHelper.getInstance();
-    // Главная панель
-    private JPanel panel = new JPanel();
+    // Главная панель для слоя с панелью задач
+    private JPanel mainPanel = new JPanel();
+    // Непосредственно панель задач
+    private JPanel taskBarPanel = new JPanel();
     // Панель для кнопки запуска "Меню приложений"
     private JPanel startButtonPanel = new JPanel();
     private JLabel startButtonLabel = new JLabel();
+    // Виджет блокировки/выключения системы
+    SystemBlockShutdownWidgetPanel blockOffWidget = new SystemBlockShutdownWidgetPanel();
 
     public TaskBarPanel() {
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+        mainPanel.setOpaque(false);
+        mainPanel.setBackground(Color.GREEN);
+        //mainPanel.setBounds(0, 0, 1280, 720);
+
         // BoxLayout.LINE_AXIS включает режим компоновки элементов "слева направо"
-        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-        panel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 45));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
-        panel.setOpaque(true);
-        panel.setBackground(new Color(214, 223, 232));
+        taskBarPanel.setLayout(new BoxLayout(taskBarPanel, BoxLayout.LINE_AXIS));
+        taskBarPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 45));
+        taskBarPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
+        taskBarPanel.setOpaque(true);
+        taskBarPanel.setBackground(new Color(214, 223, 232));
 
         // Настройка/инциализация дочерних элементов панели задач
         setupStartButtonPanel();
-        SystemBlockShutdownWidgetPanel blockOffWidget = new SystemBlockShutdownWidgetPanel();
 
-        // Добавление всех дочерних элементов
-        panel.add(startButtonPanel);
-        panel.add(Box.createHorizontalGlue()); // горизонтальный "наполнитель-клей"
-        panel.add(blockOffWidget.getPanel());
+        // Добавление всех дочерних элементов в панель задач
+        taskBarPanel.add(startButtonPanel);
+        taskBarPanel.add(Box.createHorizontalGlue()); // горизонтальный "наполнитель-клей"
+        taskBarPanel.add(blockOffWidget.getPanel());
+
+        // Набивка главной панели заполнителем и добавление вниз контейнера панели задач
+        mainPanel.add(Box.createVerticalGlue());
+        mainPanel.add(taskBarPanel);
     }
 
     public JPanel getPanel() {
-        return panel;
+        return mainPanel;
     }
 
     private void setupStartButtonPanel() {

@@ -59,6 +59,7 @@ public class CustomContentPane extends JPanel implements ComponentListener {
         // Строку ниже можно будет использовать для скейла изображения при необходимости.
         // Во время скейла нужно соблюдать пропорции, чтобы избежать искажений.
         //backgroundImage = backgroundImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+        repaint();
     }
 
     public void componentShown(ComponentEvent e) {
