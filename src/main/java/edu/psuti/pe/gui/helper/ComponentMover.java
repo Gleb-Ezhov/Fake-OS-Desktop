@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui;
+package edu.psuti.pe.gui.helper;
 
 import java.awt.*;
 import java.awt.event.*;

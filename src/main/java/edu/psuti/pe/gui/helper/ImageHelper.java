@@ -1,18 +1,15 @@
 package edu.psuti.pe.gui.helper;
 
-import edu.psuti.pe.gui.MissingIcon;
 import org.apache.batik.anim.dom.SVGDOMImplementation;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscodingHints;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.util.SVGConstants;
-import org.w3c.dom.DOMImplementation;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 public class ImageHelper {
