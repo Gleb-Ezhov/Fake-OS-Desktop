@@ -31,6 +31,8 @@
                     <include>system-shutdown.svg</include>
                     <include>system-lock-screen.svg</include>
                     <include>start.svgz</include>
+                    <include>Hack-Regular.ttf</include>
+                    <include>NotoSans-Regular.ttf</include>
                 </includes>
             </resource>
         </resources>
