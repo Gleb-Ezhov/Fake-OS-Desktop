@@ -10,9 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
+import java.io.Serializable;
 import java.net.URL;
 
-public class ImageHelper {
+public class ImageHelper implements Serializable {
     private static ImageHelper imageHelper;
     // префиксы пути до папки с ресурсами:
     private final String pathPrefixURL = "/"; // для URL
