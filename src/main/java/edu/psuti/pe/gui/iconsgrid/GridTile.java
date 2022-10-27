@@ -14,7 +14,7 @@ public class GridTile extends JPanel {
 
     public GridTile() {
         super();
-        setOpaque(true);
+        setOpaque(false);
         setBackground(Color.LIGHT_GRAY);
     }
 

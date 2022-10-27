@@ -3,11 +3,13 @@ package edu.psuti.pe.gui.iconsgrid;
 import edu.psuti.pe.gui.helper.ImageHelper;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.dnd.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+// Панель иконки-ярлыка
 public class AppIconPanel extends JPanel {
     ImageHelper imageHelper = ImageHelper.getInstance();
     JPanel icon = new JPanel(new BorderLayout());
@@ -18,19 +20,17 @@ public class AppIconPanel extends JPanel {
 
     public AppIconPanel(String appIconResource, String appName) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setOpaque(true);
+        setOpaque(false);
         setBackground(Color.MAGENTA);
 
-        setMinimumSize(new Dimension(80, 90));
-        setPreferredSize(new Dimension(80, 90));
-        setMaximumSize(new Dimension(80, 90));
+        setMinimumSize(new Dimension(80, 100));
+        setPreferredSize(new Dimension(80, 100));
+        setMaximumSize(new Dimension(80, 100));
 
         //addMouseListener(new IconsGridMouseListener());
 
         setupIcon(appIconResource);
         setupTextLabel(appName);
-
-        //setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         add(icon);
         add(name);
@@ -39,13 +39,13 @@ public class AppIconPanel extends JPanel {
     private void setupIcon(String appIconResource) {
         JLabel iconLabel = new JLabel(imageHelper.createImageIconFromSvg(appIconResource, "Placeholder App Icon",
                 50, 50));
-        iconLabel.setOpaque(true);
+        iconLabel.setOpaque(false);
         iconLabel.setBackground(Color.red);
         iconLabel.setMinimumSize(new Dimension(80, 60));
         iconLabel.setPreferredSize(new Dimension(80, 60));
         iconLabel.setMaximumSize(new Dimension(80, 60));
 
-        icon.setOpaque(true);
+        icon.setOpaque(false);
         icon.setBackground(Color.pink);
         icon.setMinimumSize(new Dimension(80, 60));
         icon.setPreferredSize(new Dimension(80, 60));
@@ -54,33 +54,14 @@ public class AppIconPanel extends JPanel {
     }
 
     private void setupTextLabel(String appName) {
-        JLabel nameLabel = new JLabel();
-
-        nameLabel.setOpaque(true);
-        nameLabel.setBackground(Color.orange);
-        nameLabel.setMinimumSize(new Dimension(80, 30));
-        nameLabel.setPreferredSize(new Dimension(80, 30));
-        nameLabel.setMaximumSize(new Dimension(80, 30));
-
-        // todo: ? отрисовка текста с тенью через Graphics2D
-        // todo: шрифт масштабируется, вместо изменения кегля. нужно исправить
-        nameLabel.setFont(new Font("Noto Sans Regular", Font.PLAIN, 12));
-        //nameLabel.setForeground(new Color(0xffffdd));
-        String labelText = String.format(
-                "<html>" +
-                    "<div style='width:%dpx; text-align:center; color:white;'>" +
-                        "%s" +
-                    "</div>" +
-                "</html>",
-                65, appName);
-        nameLabel.setText(labelText);
-
-        name.setOpaque(true);
+        name.setOpaque(false);
         name.setBackground(Color.green);
-        name.setMinimumSize(new Dimension(80, 30));
-        name.setPreferredSize(new Dimension(80, 30));
-        name.setMaximumSize(new Dimension(80, 30));
-        name.add(nameLabel);
+        name.setMinimumSize(new Dimension(80, 40));
+        name.setPreferredSize(new Dimension(80, 40));
+        name.setMaximumSize(new Dimension(80, 40));
+        name.setBorder(new EmptyBorder(3, 0, 0, 0));
+        IconTextPanel iconTextPanel = new IconTextPanel(appName);
+        name.add(iconTextPanel);
     }
 
     @Override
