@@ -1,6 +1,7 @@
 package edu.psuti.pe.gui.iconsgrid;
 
 import edu.psuti.pe.gui.helper.ImageHelper;
+import edu.psuti.pe.gui.helper.RoundedBorder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -8,6 +9,7 @@ import java.awt.*;
 import java.awt.dnd.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 
 // Панель иконки-ярлыка
 public class AppIconPanel extends JPanel {
@@ -23,11 +25,11 @@ public class AppIconPanel extends JPanel {
         setOpaque(false);
         setBackground(Color.MAGENTA);
 
-        setMinimumSize(new Dimension(80, 100));
-        setPreferredSize(new Dimension(80, 100));
-        setMaximumSize(new Dimension(80, 100));
+        setMinimumSize(new Dimension(105, 100));
+        setPreferredSize(new Dimension(105, 100));
+        setMaximumSize(new Dimension(105, 100));
 
-        //addMouseListener(new IconsGridMouseListener());
+        addMouseListener(new AppIconPanelMouseListener());
 
         setupIcon(appIconResource);
         setupTextLabel(appName);
@@ -90,41 +92,40 @@ public class AppIconPanel extends JPanel {
         super.removeNotify();
     }
 
-    private class IconsGridMouseListener implements MouseListener {
+    private class AppIconPanelMouseListener implements MouseListener, Serializable {
         @Override
         public void mouseClicked(MouseEvent e) {
-
+            if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+                System.out.println("AppIconPanel double clicked");
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-//            JComponent thisComponent = (JComponent) e.getComponent();
-//            thisComponent.setOpaque(true);
-//            thisComponent.setBackground(new Color(144, 150, 156));
-//            thisComponent.repaint();
+            JComponent thisComponent = (JComponent) e.getComponent();
+            thisComponent.setOpaque(true);
+            thisComponent.setBackground(new Color(120, 183, 223, 180));
+            thisComponent.repaint();
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {
-            JComponent thisComponent = (JComponent) e.getComponent();
-            thisComponent.setOpaque(true);
-            thisComponent.setBackground(Color.GREEN);
-            thisComponent.repaint();
-        }
+        public void mouseReleased(MouseEvent e) { }
 
         @Override
         public void mouseEntered(MouseEvent e) {
             JComponent thisComponent = (JComponent) e.getComponent();
             thisComponent.setOpaque(true);
-            thisComponent.setBackground(Color.RED);
+            thisComponent.setBorder(new RoundedBorder(new Color(120, 183, 223, 255), 8));
+            thisComponent.setBackground(new Color(120, 183, 223, 100));
             thisComponent.repaint();
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-//            JComponent thisComponent = (JComponent) e.getComponent();
-//            thisComponent.setOpaque(false);
-//            thisComponent.repaint();
+            JComponent thisComponent = (JComponent) e.getComponent();
+            thisComponent.setBorder(null);
+            thisComponent.setOpaque(false);
+            thisComponent.repaint();
         }
     }
 }
