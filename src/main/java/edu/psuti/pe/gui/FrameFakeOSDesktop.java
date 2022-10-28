@@ -27,25 +27,6 @@ public class FrameFakeOSDesktop extends JFrame {
         registerRequiredFonts();
         setCustomContentPane();
         addChildrenComponents();
-        //experimentingWithMovablePanels();
-    }
-
-    private void experimentingWithMovablePanels() {
-        JPanel movablePanel = new JPanel();
-        movablePanel.setOpaque(true);
-        movablePanel.setBackground(Color.RED);
-        movablePanel.setLayout(new BoxLayout(movablePanel, BoxLayout.PAGE_AXIS));
-        movablePanel.setBounds(10, 10, 200, 400);
-        desktopPanel.getWorkspacePanel().add(movablePanel);
-
-        // передвигатель
-        ComponentMover componentMover = new ComponentMover();
-        componentMover.registerComponent(movablePanel);
-
-        // размероизменятель
-        ComponentResizer cr = new ComponentResizer();
-        cr.setSnapSize(new Dimension(10, 10));
-        cr.registerComponent(movablePanel);
     }
 
     private void registerRequiredFonts() {

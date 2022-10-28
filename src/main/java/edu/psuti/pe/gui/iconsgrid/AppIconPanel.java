@@ -1,5 +1,6 @@
 package edu.psuti.pe.gui.iconsgrid;
 
+import edu.psuti.pe.gui.WindowPanel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
 
@@ -97,6 +98,12 @@ public class AppIconPanel extends JPanel {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
                 System.out.println("AppIconPanel double clicked");
+                WindowPanel testWindow = new WindowPanel("Placeholder Title", 300, 350);
+                Container container = (Container)getRootPane().getContentPane().getComponent(0); // Desktop Panel
+                container = (Container)container.getComponent(0); // Layered Panel
+                container = (Container)container.getComponent(1); // Workspace Panel
+                container.add(testWindow);
+                container.repaint();
             }
         }
 
