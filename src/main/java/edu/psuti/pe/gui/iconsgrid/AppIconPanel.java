@@ -103,6 +103,7 @@ public class AppIconPanel extends JPanel {
                 container = (Container)container.getComponent(0); // Layered Panel
                 container = (Container)container.getComponent(1); // Workspace Panel
                 container.add(testWindow);
+                container.validate();
                 container.repaint();
             }
         }
