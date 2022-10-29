@@ -76,7 +76,7 @@ public class FrameFakeOSDesktop extends JFrame {
         // Display the window.
         pack();
         boolean isFullScreen = false; // возможно будет вынесен отдельный параметр в GUI для этого
-        if (isFullScreen == true) device.setFullScreenWindow(this);
+        if (isFullScreen) device.setFullScreenWindow(this);
         setVisible(true);
     }
 }

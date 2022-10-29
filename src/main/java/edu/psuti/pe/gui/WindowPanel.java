@@ -15,7 +15,20 @@ public class WindowPanel extends JPanel {
     private int width;
     private int height;
 
-    private JPanel titleBarPanel = new JPanel();
+    private JPanel titleBarPanel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            Dimension arcs = new Dimension(15, 15); // Upper corners arcs {width, height}
+            int width = getWidth();
+            int height = getHeight();
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2d.setColor(getBackground());
+            g2d.fillRoundRect(0, 0, width, height, arcs.width, arcs.height); // рисуется закруглённый прямоугольник
+            g2d.fillRect(0, 20, width, height / 2); // закрашивается его нижняя часть
+        }
+    };
 
     public WindowPanel(String appTitle, int width, int height) {
         this.width = width;
@@ -52,5 +65,13 @@ public class WindowPanel extends JPanel {
         componentMover.registerComponent(titleBarPanel);
 
         add(titleBarPanel);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(getBackground());
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.fillRect(0, 29, getWidth(), getHeight()); // отрисовка нижней части окна (без полосы заголовка)
     }
 }
