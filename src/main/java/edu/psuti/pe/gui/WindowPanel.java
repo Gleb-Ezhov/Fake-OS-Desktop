@@ -2,12 +2,14 @@ package edu.psuti.pe.gui;
 
 import edu.psuti.pe.gui.helper.ComponentMover;
 import edu.psuti.pe.gui.helper.ComponentResizer;
+import org.jdesktop.swingx.JXPanel;
+import org.jdesktop.swingx.border.DropShadowBorder;
 
 import javax.swing.*;
 import java.awt.*;
 
 // todo ? в дальнейшем сделать абстрактным
-public class WindowPanel extends JPanel {
+public class WindowPanel extends JXPanel {
     private ComponentMover componentMover;
     private ComponentResizer componentResizer = new ComponentResizer();
 
@@ -44,6 +46,15 @@ public class WindowPanel extends JPanel {
         setOpaque(true);
         setBackground(new Color(255, 176, 196));
         setBounds(100, 100, width, height);
+
+        // SwingX functionality
+        DropShadowBorder shadow = new DropShadowBorder();
+        shadow.setShadowColor(Color.BLACK);
+        shadow.setShowLeftShadow(true);
+        shadow.setShowRightShadow(true);
+        shadow.setShowBottomShadow(true);
+        shadow.setShowTopShadow(true);
+        this.setBorder(shadow);
 
         componentResizer.setSnapSize(new Dimension(10, 10));
         componentResizer.registerComponent(this);
