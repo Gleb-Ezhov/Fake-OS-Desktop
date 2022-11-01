@@ -7,35 +7,27 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-// todo ? в дальнейшем сделать абстрактным
+// Общая панель для окна какой-либо программы
 public class WindowPanel extends JPanel {
     private ComponentMover componentMover;
     private ComponentResizer componentResizer = new ComponentResizer();
 
-    private String appTitle;
-    private int width;
-    private int height;
+    private String appTitle; // Название приложения
+    private int shadowPixels = 8; // Ширина тени для окна в пикселях
+    private int topOpacity = 60; // Максимальная непрозрачность для тени
+    Dimension arcs = new Dimension(15, 15); // Изгибы верхних углов окна и его тени {width, height}
 
-    // Размеры основного содержимого окна
-    int contentWidth;
-    int contentHeight;
-
-    private int shadowPixels = 5; // Ширина тени для окна в пикселях
-    private int topOpacity = 80; // Максимальная непрозрачность для тени
-
-    // todo ? попробовать месте этого дамика сделать отдельную панель для основного содержимого окна и чтобы оно ресайзилось на его краях
-    private JPanel dummyPanel = new JPanel(new BorderLayout());
+    private JPanel contentPanel = new JPanel(); // Панель с основным содержимым
 
     private JPanel titleBarPanel = new JPanel() {
-        // todo сделать тень для полосы заголовка
         @Override
         protected void paintComponent(Graphics g) {
-            Dimension arcs = new Dimension(15, 15); // Upper corners arcs {width, height}
             int width = getWidth();
             int height = getHeight();
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+            // Отрисовка полосы заголовка
             g2d.setColor(getBackground());
             g2d.fillRoundRect(0, 0, width, height, arcs.width, arcs.height); // рисуется закруглённый прямоугольник
             g2d.fillRect(0, 20, width, height / 2); // закрашивается его нижняя часть
@@ -43,20 +35,20 @@ public class WindowPanel extends JPanel {
     };
 
     public WindowPanel(String appTitle, int width, int height) {
-        this.width = width;
-        this.height = height;
         this.appTitle = appTitle;
 
-        contentWidth = getWidth() * (shadowPixels * 2);
-        contentHeight = getHeight() * (shadowPixels * 2);
-
-        setupWindow();
+        setupWindow(width, height);
         setupTitleBar();
+        setupContentPanel();
     }
 
-    private void setupWindow() {
+    // Ширина окна без учёта границы с тенью
+    private int getContentWidth() { return getWidth() - shadowPixels * 2; }
+    // Высота окна без учёта границы с тенью
+    private int getContentHeight() { return getHeight() - shadowPixels * 2; }
+
+    private void setupWindow(int width, int height) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        setOpaque(false);
         setBackground(new Color(255, 176, 196));
 
         // Устанавливается невидимая граница, служащая пространством для отрисовки тени от окна.
@@ -64,22 +56,21 @@ public class WindowPanel extends JPanel {
         Border border = BorderFactory.createEmptyBorder(shadowPixels, shadowPixels, shadowPixels, shadowPixels);
         setBorder(BorderFactory.createCompoundBorder(getBorder(), border));
 
-        // При остановке размеров окна учитываются невидимые границы с тенью
-        Insets borderInsets = getInsets();
-        setBounds(100, 100, width + borderInsets.left + borderInsets.right,
-                height + borderInsets.top + borderInsets.bottom);
+        // При установке размеров окна учитываются невидимые границы для тени
+        setBounds(100, 100, width + shadowPixels * 2, height + shadowPixels * 2);
 
         componentResizer.setSnapSize(new Dimension(10, 10));
+        componentResizer.setMinimumSize(new Dimension(100, 100));
+        componentResizer.setDragInsets(new Insets(12, 12, 12, 12));
         componentResizer.registerComponent(this);
-
-        dummyPanel.setSize(new Dimension(100, 100));
     }
 
     private void setupTitleBar() {
         titleBarPanel.setLayout(new BoxLayout(titleBarPanel, BoxLayout.LINE_AXIS));
-        titleBarPanel.setOpaque(false);
         titleBarPanel.setBackground(new Color(222, 224, 226));
 
+        // В высоту добавляется пространство для отрисовки тени
+        Insets borderInsets = getInsets();
         titleBarPanel.setMinimumSize(new Dimension(Integer.MAX_VALUE, 29));
         titleBarPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 29));
         titleBarPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 29));
@@ -91,30 +82,63 @@ public class WindowPanel extends JPanel {
         componentMover.registerComponent(titleBarPanel);
 
         add(titleBarPanel);
-        // дамик
-        add(dummyPanel);
+    }
+
+    private void setupContentPanel() {
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
+        contentPanel.setBackground(new Color(255, 235, 17));
+        contentPanel.setOpaque(true);
+
+        // todo : панель отображается некорректно в боксе окна
+//        contentPanel.setSize(new Dimension(100, 100));
+        contentPanel.setMinimumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        contentPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        contentPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+        add(contentPanel);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(getBackground());
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        // отрисовка нижней части окна (без полосы заголовка)
-        g2d.fillRect(0, 28, contentWidth, contentHeight);
 
-        // Отрисовка тени окна несколькими прямоугольниками, начиная с самого прозрачного и
+        // Отрисовка тени окна несколькими закруглёнными прямоугольниками, начиная с самого прозрачного и
         // заканчивая самым непрозрачным уже ближе к самому содержимому окна.
         for (int i = 0; i < shadowPixels; ++i) {
             // +5 к непрозрачности, чтобы избежать пустой тени при i = 0
-            // +-29, чтобы опуститься ниже полосы заголовка и окружить тенью основное содержимое окна
             // -+1 на X начальной координате и ширине, т.к. почему-то в ходе рендера одна вертикальная полоска в 1px не закрашивалась
             g2d.setColor(new Color(0, 0, 0, (topOpacity / shadowPixels) * i + 5));
-            g2d.drawRect(i - 1, i + 29, getWidth() - (i * 2) + 1, getHeight() - (i * 2) - 29);
+            g2d.drawRoundRect(i - 1, i, getWidth() - (i * 2) + 1, getHeight() - (i * 2), arcs.width, arcs.height);
+
+            // Закомментирована реализация тени в виде отдельной квадартной тени для нижней части окна
+            // и закруглённой тени для полосы заголовка.
+
+//          +-29, чтобы опуститься ниже полосы заголовка и окружить тенью основное содержимое окна
+//            g2d.drawRect(i - 1, i + 29, getWidth() - (i * 2) + 1, getHeight() - (i * 2) - 29);
+//            g2d.drawRoundRect(i - 1, i,
+//                    getWidth() - (i * 2) + 1, 29 + shadowPixels * 2 - (i * 2),
+//                    arcs.width, arcs.height);
         }
 
         // Выделение краёв основного содержимого окна тёмным контуром в 1px
-        g2d.setColor(new Color(0, 0, 0, 110));
-        g2d.drawRect(shadowPixels - 1, shadowPixels + 29, getWidth() - shadowPixels * 2 + 1, getHeight() - shadowPixels * 2 - 29);
+        g2d.setColor(new Color(0, 0, 0, 70));
+        g2d.drawRect(shadowPixels - 1, shadowPixels + 29, getContentWidth() + 1, getContentHeight() - 29);
+
+        // Выделение полосы заголовка:
+        // белым контуром  сверху для придания объёма
+        g2d.setColor(new Color(255, 255, 255, 240));
+        g2d.drawRoundRect(shadowPixels - 1, shadowPixels - 1,
+                getComponent(0).getWidth() + 1, 8,
+                arcs.width, arcs.height);
+        // и тёмным контуром в остальной части, чтобы плавно перейти в контур основного содержимого
+        g2d.setColor(new Color(0, 0, 0, 70));
+        g2d.drawRect(shadowPixels - 1, shadowPixels - 1 + 5,
+                getComponent(0).getWidth() + 1, 24);
+
+        // Отрисовка нижней части окна (его фон ниже полосы заголовка)
+        // исп. при отладке, отключен для повышения производительности
+//        g2d.setColor(getBackground());
+//        g2d.fillRect(shadowPixels, shadowPixels + 28, getContentWidth(), getContentHeight() - 28);
     }
 }
