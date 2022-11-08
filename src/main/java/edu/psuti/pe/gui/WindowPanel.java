@@ -10,16 +10,18 @@ import java.awt.*;
 // Общая панель для окна какой-либо программы
 public class WindowPanel extends JPanel {
     private ComponentMover componentMover;
-    private ComponentResizer componentResizer = new ComponentResizer();
+    private final ComponentResizer componentResizer = new ComponentResizer();
 
-    private String appTitle; // Название приложения
-    private int shadowPixels = 8; // Ширина тени для окна в пикселях
-    private int topOpacity = 60; // Максимальная непрозрачность для тени
+    private final String appTitle; // Название приложения
+    private final int shadowPixels = 8; // Ширина тени для окна в пикселях
+    private final int topOpacity = 60; // Максимальная непрозрачность для тени
     Dimension arcs = new Dimension(15, 15); // Изгибы верхних углов окна и его тени {width, height}
 
-    private JPanel contentPanel = new JPanel(); // Панель с основным содержимым
+    // Панель с основным содержимым
+    private final JPanel contentPanel = new JPanel();
 
-    private JPanel titleBarPanel = new JPanel() {
+    // Полоса заголовка
+    private final JPanel titleBarPanel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
             int width = getWidth();
@@ -43,12 +45,17 @@ public class WindowPanel extends JPanel {
     }
 
     // Ширина окна без учёта границы с тенью
-    private int getContentWidth() { return getWidth() - shadowPixels * 2; }
+    private int getContentWidth() {
+        return getWidth() - shadowPixels * 2;
+    }
+
     // Высота окна без учёта границы с тенью
-    private int getContentHeight() { return getHeight() - shadowPixels * 2; }
+    private int getContentHeight() {
+        return getHeight() - shadowPixels * 2;
+    }
 
     private void setupWindow(int width, int height) {
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setLayout(new GridBagLayout());
         setBackground(new Color(255, 176, 196));
 
         // Устанавливается невидимая граница, служащая пространством для отрисовки тени от окна.
@@ -81,21 +88,27 @@ public class WindowPanel extends JPanel {
         componentMover.setEdgeInsets(new Insets(0, -500, 0, -500)); // можно выезжать за края
         componentMover.registerComponent(titleBarPanel);
 
-        add(titleBarPanel);
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        add(titleBarPanel, gridBagConstraints);
     }
 
     private void setupContentPanel() {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.PAGE_AXIS));
         contentPanel.setBackground(new Color(255, 235, 17));
         contentPanel.setOpaque(true);
+        contentPanel.setMinimumSize(new Dimension(100, 100));
+        contentPanel.setPreferredSize(new Dimension(100, 100));
+        contentPanel.setMaximumSize(new Dimension(100, 100));
 
-        // todo : панель отображается некорректно в боксе окна
-//        contentPanel.setSize(new Dimension(100, 100));
-        contentPanel.setMinimumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-        contentPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-        contentPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
-
-        add(contentPanel);
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.weighty = 0.5;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        add(contentPanel, gridBagConstraints);
     }
 
     @Override
