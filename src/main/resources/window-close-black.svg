@@ -1,0 +1,11 @@
+<svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+    <style
+        type="text/css"
+        id="current-color-scheme">
+        .ColorScheme-NegativeText {
+            color:#da4453;
+        }
+    </style>
+    <rect x="-9.38" y="-0.161" width="9.381" height="0.044" style="stroke: rgb(0, 0, 0);" transform="matrix(0.708691, 0.705519, 0.694739, -0.719423, 14.426637, 14.195078)"></rect>
+    <rect x="9.379" y="0.161" width="9.38" height="0.044" style="stroke: rgb(0, 0, 0);" transform="matrix(0.706824, -0.707389, -0.705503, -0.708712, 1.197213, 21.072266)"></rect>
+</svg>
