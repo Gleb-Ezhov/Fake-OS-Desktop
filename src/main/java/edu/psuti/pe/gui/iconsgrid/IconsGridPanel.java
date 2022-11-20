@@ -20,17 +20,18 @@ public class IconsGridPanel extends JPanel {
     }
 
     private void fillLayout() {
+        // Сетка заполняется GridTile'ами
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; j++) {
                 GridTile tile = new GridTile();
-
-                if (i == 0 && (j == 0 || j == 1)) {
-                    AppIconPanel icon = new AppIconPanel("start.svgz", "Placeholder App Icon");
-                    tile.add(icon);
-                }
-
                 gridPanel.add(tile);
             }
         }
+
+        // В соответствующие тайлы добавляются ярлыки стандартных приложений
+        AppIconPanel iconStart = new AppIconPanel("start.svgz", "Placeholder App Icon");
+        AppIconPanel iconDolphin = new AppIconPanel("dolphin.svg", "Dolphin");
+        ((Container)gridPanel.getComponent(cols * 0)).add(iconStart);
+        ((Container)gridPanel.getComponent(cols * 1)).add(iconDolphin);
     }
 }

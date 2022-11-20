@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui;
+package edu.psuti.pe.gui.window;
 
 import edu.psuti.pe.gui.helper.ComponentMover;
 import edu.psuti.pe.gui.helper.ComponentResizer;
@@ -12,7 +12,8 @@ public class WindowPanel extends JPanel {
     private ComponentMover componentMover;
     private final ComponentResizer componentResizer = new ComponentResizer();
 
-    private final String appTitle; // Название приложения
+    private String appTitle; // Название приложения
+    private String appIconResource;
     private final int shadowPixels = 8; // Ширина тени для окна в пикселях
     private final int topOpacity = 60; // Максимальная непрозрачность для тени
     Dimension arcs = new Dimension(15, 15); // Изгибы верхних углов окна и его тени {width, height}
@@ -21,23 +22,11 @@ public class WindowPanel extends JPanel {
     private final JPanel contentPanel = new JPanel();
 
     // Полоса заголовка
-    private final JPanel titleBarPanel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            int width = getWidth();
-            int height = getHeight();
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    private TitleBarPanel titleBarPanel;
 
-            // Отрисовка полосы заголовка
-            g2d.setColor(getBackground());
-            g2d.fillRoundRect(0, 0, width, height, arcs.width, arcs.height); // рисуется закруглённый прямоугольник
-            g2d.fillRect(0, 20, width, height / 2); // закрашивается его нижняя часть
-        }
-    };
-
-    public WindowPanel(String appTitle, int width, int height) {
+    public WindowPanel(String appIconResource, String appTitle, int width, int height) {
         this.appTitle = appTitle;
+        this.appIconResource = appIconResource;
 
         setupWindow(width, height);
         setupTitleBar();
@@ -73,14 +62,7 @@ public class WindowPanel extends JPanel {
     }
 
     private void setupTitleBar() {
-        titleBarPanel.setLayout(new BoxLayout(titleBarPanel, BoxLayout.LINE_AXIS));
-        titleBarPanel.setBackground(new Color(222, 224, 226));
-
-        // В высоту добавляется пространство для отрисовки тени
-        Insets borderInsets = getInsets();
-        titleBarPanel.setMinimumSize(new Dimension(Integer.MAX_VALUE, 29));
-        titleBarPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 29));
-        titleBarPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 29));
+        titleBarPanel = new TitleBarPanel(appIconResource, appTitle, arcs);
 
         // События перетаскивания на полосе зоголовка будут передаваться панели окна
         componentMover = new ComponentMover(this.getClass(), titleBarPanel);

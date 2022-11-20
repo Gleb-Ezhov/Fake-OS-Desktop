@@ -7,16 +7,18 @@ import java.io.Serializable;
 public class RoundedBorder implements Border, Serializable {
     private Color color;
     private int radius;
+    private Insets insets;
 
-    public RoundedBorder(Color color, int radius) {
+    public RoundedBorder(Color color, int radius, Insets insets) {
         this.color = color;
         this.radius = radius;
+        this.insets = insets;
     }
 
     @Override
     public Insets getBorderInsets(Component c) {
-        // Данная реализация Border не создаёт вставок в панель и не смещает её содержимое
-        return new Insets(0, 0, 0, 0);
+        // Вставки в панель, создаваемые этой границей
+        return insets;
     }
 
     @Override

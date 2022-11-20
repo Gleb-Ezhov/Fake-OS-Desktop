@@ -37,9 +37,29 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
+                    <!-- Task Bar Resources -->
                     <include>system-shutdown.svg</include>
                     <include>system-lock-screen.svg</include>
                     <include>start.svgz</include>
+
+                    <!-- Programs Resources -->
+                    <include>dolphin.svg</include>
+
+                    <!-- Title Bar Resources -->
+                    <include>window-close.svg</include>
+                    <include>window-close-black.svg</include>
+                    <include>window-close-vinous.svg</include>
+                    <include>window-restore.svg</include>
+                    <include>window-restore-black.svg</include>
+                    <include>window-restore-gray.svg</include>
+                    <include>go-down.svg</include>
+                    <include>go-down-black.svg</include>
+                    <include>go-down-gray.svg</include>
+                    <include>go-up.svg</include>
+                    <include>go-up-black.svg</include>
+                    <include>go-up-gray.svg</include>
+
+                    <!-- Fonts -->
                     <include>Hack-Regular.ttf</include>
                     <include>NotoSans-Regular.ttf</include>
                 </includes>
