@@ -2,6 +2,7 @@ package edu.psuti.pe.gui.helper;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
@@ -22,7 +23,7 @@ import javax.swing.SwingUtilities;
  *
  *  https://tips4java.wordpress.com/2009/06/14/moving-windows/
  */
-public class ComponentMover extends MouseAdapter
+public class ComponentMover extends MouseAdapter implements Serializable
 {
     private Insets dragInsets = new Insets(0, 0, 0, 0);
     private Dimension snapSize = new Dimension(1, 1);

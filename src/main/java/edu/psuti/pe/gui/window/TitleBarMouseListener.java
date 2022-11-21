@@ -1,35 +1,34 @@
 package edu.psuti.pe.gui.window;
 
-import edu.psuti.pe.gui.helper.ImageHelper;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class TitleBarMouseListener implements MouseListener {
-    private final ImageHelper imageHelper = ImageHelper.getInstance();
+    private final WindowsManager windowsManager = WindowsManager.getInstance(null);
 
     private TitleBarButtonType type;
+    boolean isPressed = false;
+    boolean isPressedInButtonZone = false;
 
     public TitleBarMouseListener(TitleBarButtonType buttonType) {
         this.type = buttonType;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    public TitleBarButtonType getButtonType() { return type; }
 
-    }
+    @Override
+    public void mouseClicked(MouseEvent e) {}
 
     @Override
     public void mousePressed(MouseEvent e) {
+        isPressed = true;
+        isPressedInButtonZone = true;
         JComponent thisComponent = (JComponent) e.getComponent();
-        JLabel labelToChange;
 
         switch (type) {
             case CLOSE:
                 ((TitleBarPanel)thisComponent.getParent()).setPressedIconForCloseButton();
-
                 break;
 
             case MINIMIZE:
@@ -41,92 +40,112 @@ public class TitleBarMouseListener implements MouseListener {
                 break;
 
             case RESTORE:
-                labelToChange = ((TitleBarPanel)thisComponent.getParent()).getRestoreButtonLabel();
-                if (labelToChange != null)
-                    labelToChange.setIcon(imageHelper.createImageIconFromSvg("window-restore-gray.svg", "App's Restore Button",
-                            23, 23));
+                ((TitleBarPanel)thisComponent.getParent()).setPressedIconForRestoreButton();
                 break;
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        isPressed = false;
         JComponent thisComponent = (JComponent) e.getComponent();
-        JLabel labelToChange;
 
         switch (type) {
             case CLOSE:
-                ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForCloseButton();
+                if (isPressedInButtonZone) {
+                    ((TitleBarPanel) thisComponent.getParent()).setEnteredIconForCloseButton();
+                    System.out.println("close");
+                    windowsManager.removeWindow((WindowPanel)thisComponent.getParent().getParent());
+                    isPressedInButtonZone = false;
+                } else {
+                    ((TitleBarPanel) thisComponent.getParent()).setExitedIconForCloseButton();
+                }
                 break;
 
             case MINIMIZE:
-                ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForMinimizeButton();
+                if (isPressedInButtonZone) {
+                    ((TitleBarPanel) thisComponent.getParent()).setEnteredIconForMinimizeButton();
+                    System.out.println("minimize");
+                    // action
+                    isPressedInButtonZone = false;
+                } else {
+                    ((TitleBarPanel) thisComponent.getParent()).setExitedIconForMinimizeButton();
+                }
                 break;
 
             case MAXIMIZE:
-                ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForMaximizeButton();
+                if (isPressedInButtonZone) {
+                    System.out.println("maximize");
+                    WindowPanel window = (WindowPanel)thisComponent.getParent().getParent();
+                    windowsManager.maximizeWindow(window);
+                    windowsManager.moveWindowToFront(window);
+                    isPressedInButtonZone = false;
+                } else {
+                    ((TitleBarPanel) thisComponent.getParent()).setExitedIconForMaximizeButton();
+                }
                 break;
 
             case RESTORE:
-                labelToChange = ((TitleBarPanel)thisComponent.getParent()).getRestoreButtonLabel();
-                if (labelToChange != null)
-                    labelToChange.setIcon(imageHelper.createImageIconFromSvg("window-restore-black.svg", "App's Restore Button",
-                            23, 23));
+                if (isPressedInButtonZone) {
+                    System.out.println("restore");
+                    windowsManager.restoreWindow((WindowPanel)thisComponent.getParent().getParent());
+                    isPressedInButtonZone = false;
+                } else {
+                    ((TitleBarPanel) thisComponent.getParent()).setExitedIconForRestoreButton();
+                }
                 break;
         }
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        if (isPressed) isPressedInButtonZone = true;
         JComponent thisComponent = (JComponent) e.getComponent();
-        JLabel labelToChange;
 
-        switch (type) {
-            case CLOSE:
-                ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForCloseButton();
-                break;
+        if (!isPressed) {
+            switch (type) {
+                case CLOSE:
+                    ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForCloseButton();
+                    break;
 
-            case MINIMIZE:
-                ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForMinimizeButton();
-                break;
+                case MINIMIZE:
+                    ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForMinimizeButton();
+                    break;
 
-            case MAXIMIZE:
-                ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForMaximizeButton();
-                break;
+                case MAXIMIZE:
+                    ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForMaximizeButton();
+                    break;
 
-            case RESTORE:
-                labelToChange = ((TitleBarPanel)thisComponent.getParent()).getRestoreButtonLabel();
-                if (labelToChange != null)
-                    labelToChange.setIcon(imageHelper.createImageIconFromSvg("window-restore-black.svg", "App's Restore Button",
-                        23, 23));
-                break;
+                case RESTORE:
+                    ((TitleBarPanel)thisComponent.getParent()).setEnteredIconForRestoreButton();
+                    break;
+            }
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        isPressedInButtonZone = false;
         JComponent thisComponent = (JComponent) e.getComponent();
-        JLabel labelToChange;
 
-        switch (type) {
-            case CLOSE:
-                ((TitleBarPanel)thisComponent.getParent()).setExitedIconForCloseButton();
-                break;
+        if (!isPressed) {
+            switch (type) {
+                case CLOSE:
+                    ((TitleBarPanel)thisComponent.getParent()).setExitedIconForCloseButton();
+                    break;
 
-            case MINIMIZE:
-                ((TitleBarPanel)thisComponent.getParent()).setExitedIconForMinimizeButton();
-                break;
+                case MINIMIZE:
+                    ((TitleBarPanel)thisComponent.getParent()).setExitedIconForMinimizeButton();
+                    break;
 
-            case MAXIMIZE:
-                ((TitleBarPanel)thisComponent.getParent()).setExitedIconForMaximizeButton();
-                break;
+                case MAXIMIZE:
+                    ((TitleBarPanel)thisComponent.getParent()).setExitedIconForMaximizeButton();
+                    break;
 
-            case RESTORE:
-                labelToChange = ((TitleBarPanel)thisComponent.getParent()).getRestoreButtonLabel();
-                if (labelToChange != null)
-                    labelToChange.setIcon(imageHelper.createImageIconFromSvg("window-restore.svg", "App's Restore Button",
-                        23, 23));
-                break;
+                case RESTORE:
+                    ((TitleBarPanel)thisComponent.getParent()).setExitedIconForRestoreButton();
+                    break;
+            }
         }
     }
 }
