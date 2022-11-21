@@ -65,7 +65,7 @@ public class WindowPanel extends JPanel implements MouseListener {
         setBorder(BorderFactory.createCompoundBorder(getBorder(), border));
 
         // При установке размеров окна учитываются невидимые границы для тени
-        setBounds(100, 100, width + shadowPixels * 2, height + shadowPixels * 2);
+        setBounds(200, 80, width + shadowPixels * 2, height + shadowPixels * 2);
         previousBounds = getBounds();
 
         componentResizer.setSnapSize(new Dimension(10, 10));
