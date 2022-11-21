@@ -3,6 +3,7 @@ package edu.psuti.pe.gui.iconsgrid;
 import edu.psuti.pe.gui.window.WindowPanel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
+import edu.psuti.pe.gui.window.WindowsManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +16,8 @@ import java.io.Serializable;
 // Панель иконки-ярлыка
 public class AppIconPanel extends JPanel {
     ImageHelper imageHelper = ImageHelper.getInstance();
+    WindowsManager windowsManager = WindowsManager.getInstance(null);
+
     JPanel icon = new JPanel(new BorderLayout());
     JPanel name = new JPanel(new BorderLayout());
 
@@ -105,12 +108,15 @@ public class AppIconPanel extends JPanel {
             if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
                 System.out.println("AppIconPanel double clicked");
                 WindowPanel testWindow = new WindowPanel(appIconResource, appName, 300, 350);
-                Container container = (Container)getRootPane().getContentPane().getComponent(0); // Desktop Panel
-                container = (Container)container.getComponent(0); // Layered Panel
-                container = (Container)container.getComponent(1); // Workspace Panel
-                container.add(testWindow);
-                container.validate();
-                container.repaint();
+//                Container container = (Container)getRootPane().getContentPane().getComponent(0); // Desktop Panel
+//                container = (Container)container.getComponent(0); // Layered Panel
+//                container = (Container)container.getComponent(1); // Workspace Panel
+
+//                container.add(testWindow);
+//                container.validate();
+//                container.repaint();
+
+                windowsManager.addWindow(testWindow);
             }
         }
 

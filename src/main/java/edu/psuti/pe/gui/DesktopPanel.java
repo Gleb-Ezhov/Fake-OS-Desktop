@@ -3,6 +3,7 @@ package edu.psuti.pe.gui;
 import edu.psuti.pe.gui.helper.FilledLayeredPane;
 import edu.psuti.pe.gui.iconsgrid.IconsGridPanel;
 import edu.psuti.pe.gui.taskbar.TaskBarPanel;
+import edu.psuti.pe.gui.window.WindowsManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +19,16 @@ public class DesktopPanel extends JPanel {
     private TaskBarPanel taskBarPanel = new TaskBarPanel();
     // Сетка иконок программ
     private IconsGridPanel iconsGridPanel = new IconsGridPanel();
-    // Пространство для окон
-    private JPanel workspacePanel = new JPanel(null); // absolute positioning
+    // Многослойное пространство для окон с абсолютным позиционированием
+    private JLayeredPane workspacePanel = new JLayeredPane() {
+        // получение размеров переопределено, чтобы workspace был над панелью задач (на 45px меньше по высоте)
+        @Override
+        public Rectangle getBounds() {
+            Rectangle bounds = super.getBounds();
+            bounds.setSize((int)bounds.getWidth(), (int)bounds.getHeight() - 45);
+            return bounds;
+        }
+    };
 
     public DesktopPanel() {
         // Настройка корневой панели JPanel
@@ -31,6 +40,7 @@ public class DesktopPanel extends JPanel {
         iconsGridPanel.setBackground(Color.YELLOW);
         workspacePanel.setOpaque(false);
         workspacePanel.setBackground(Color.cyan);
+        WindowsManager.getInstance(workspacePanel); // менеджер окон получает workspace
 
         addChildrenComponents();
     }
@@ -44,5 +54,5 @@ public class DesktopPanel extends JPanel {
 
     public JComponent getPanel() { return this; }
 
-    public JPanel getWorkspacePanel() { return workspacePanel; }
+    public JLayeredPane getWorkspacePanel() { return workspacePanel; }
 }

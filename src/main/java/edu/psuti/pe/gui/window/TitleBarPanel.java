@@ -6,9 +6,12 @@ import edu.psuti.pe.gui.helper.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 // Панель полосы заголовка для окна WindowPanel
-public class TitleBarPanel extends JPanel {
+public class TitleBarPanel extends JPanel implements MouseListener {
+    WindowsManager windowsManager = WindowsManager.getInstance(null);
     private final ImageHelper imageHelper = ImageHelper.getInstance();
 
     // Иконка программы
@@ -41,6 +44,7 @@ public class TitleBarPanel extends JPanel {
 
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         setBackground(new Color(222, 224, 226));
+        addMouseListener(this);
 
         // В высоту добавляется пространство для отрисовки тени
         setMinimumSize(new Dimension(Integer.MAX_VALUE, 29));
@@ -52,6 +56,7 @@ public class TitleBarPanel extends JPanel {
         setupAppTitlePanel();
         setupMinimizeButtonPanel();
         setupMaximizeButtonPanel();
+        setupRestoreButtonPanel();
         setupCloseButtonPanel();
 
         // Добавление всех дочерних элементов в полосу
@@ -127,6 +132,22 @@ public class TitleBarPanel extends JPanel {
         maximizeButtonPanel.add(maximizeButtonLabel);
     }
 
+    private void setupRestoreButtonPanel() {
+        restoreButtonPanel.setOpaque(false);
+        restoreButtonPanel.addMouseListener(new TitleBarMouseListener(TitleBarButtonType.RESTORE));
+        restoreButtonPanel.setLayout(new BoxLayout(restoreButtonPanel, BoxLayout.PAGE_AXIS));
+
+        restoreButtonPanel.setMinimumSize(new Dimension(23, 29));
+        restoreButtonPanel.setPreferredSize(new Dimension(23, 29));
+        restoreButtonPanel.setMaximumSize(new Dimension(23, 29));
+        restoreButtonPanel.setBorder(BorderFactory.createEmptyBorder(6, 3, 6, 3));
+
+        restoreButtonLabel.setIcon(imageHelper.createImageIconFromSvg("window-restore.svg", "App's Restore Button",
+                17, 17));
+
+        restoreButtonPanel.add(restoreButtonLabel);
+    }
+
     private void setupCloseButtonPanel() {
         closeButtonPanel.setOpaque(false);
         closeButtonPanel.addMouseListener(new TitleBarMouseListener(TitleBarButtonType.CLOSE));
@@ -156,7 +177,19 @@ public class TitleBarPanel extends JPanel {
         g2d.fillRect(0, 20, width, height / 2); // закрашивается его нижняя часть
     }
 
-    // Ниже методы для замены иконок лейблов (вызываются в Mouse Listener'е)
+    // Ниже методы для манипуляций иконоками лейблов и панелями для кнопок управления окном
+
+    public void swapMaximizeRestoreButton() {
+        if (((TitleBarMouseListener)((JPanel)getComponent(3)).getMouseListeners()[0]).getButtonType() == TitleBarButtonType.MAXIMIZE) {
+            remove(3);
+            add(restoreButtonPanel, 3);
+            setExitedIconForRestoreButton();
+        } else {
+            remove(3);
+            add(maximizeButtonPanel, 3);
+            setExitedIconForMaximizeButton();
+        }
+    }
 
     public void setEnteredIconForMinimizeButton() {
         minimizeButtonLabel.setIcon(imageHelper.createImageIconFromSvg("go-down-black.svg", "App's Minimize Button",
@@ -170,6 +203,11 @@ public class TitleBarPanel extends JPanel {
 
     public void setEnteredIconForMaximizeButton() {
         maximizeButtonLabel.setIcon(imageHelper.createImageIconFromSvg("go-up-black.svg", "App's Maximize Button",
+                17, 17));
+    }
+
+    public void setEnteredIconForRestoreButton() {
+        restoreButtonLabel.setIcon(imageHelper.createImageIconFromSvg("window-restore-black.svg", "App's Restore Button",
                 17, 17));
     }
 
@@ -188,6 +226,11 @@ public class TitleBarPanel extends JPanel {
                 17, 17));
     }
 
+    public void setExitedIconForRestoreButton() {
+        restoreButtonLabel.setIcon(imageHelper.createImageIconFromSvg("window-restore.svg", "App's Restore Button",
+                17, 17));
+    }
+
     public void setPressedIconForMinimizeButton() {
         minimizeButtonLabel.setIcon(imageHelper.createImageIconFromSvg("go-down-gray.svg", "App's Minimize Button",
                 17, 17));
@@ -202,4 +245,32 @@ public class TitleBarPanel extends JPanel {
         maximizeButtonLabel.setIcon(imageHelper.createImageIconFromSvg("go-up-gray.svg", "App's Maximize Button",
                 17, 17));
     }
+
+    public void setPressedIconForRestoreButton() {
+        restoreButtonLabel.setIcon(imageHelper.createImageIconFromSvg("window-restore-gray.svg", "App's Restore Button",
+                17, 17));
+    }
+
+    // MouseListener панели заголовка
+
+    @Override
+    public void mouseClicked(MouseEvent e) {}
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        WindowPanel window = (WindowPanel)this.getParent();
+        windowsManager.moveWindowToFront(window);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // Отрисовка всех окон, чтобы окна позади тени корректно перерисовались после перемещения
+        windowsManager.repaintAllWindows();
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }

@@ -2,6 +2,7 @@ package edu.psuti.pe.gui.helper;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 import java.util.*;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
@@ -12,7 +13,7 @@ import javax.swing.SwingUtilities;
  *
  *  https://tips4java.wordpress.com/2009/09/13/resizing-components/
  */
-public class ComponentResizer extends MouseAdapter
+public class ComponentResizer extends MouseAdapter implements Serializable
 {
     private final static Dimension MINIMUM_SIZE = new Dimension(10, 10);
     private final static Dimension MAXIMUM_SIZE =
