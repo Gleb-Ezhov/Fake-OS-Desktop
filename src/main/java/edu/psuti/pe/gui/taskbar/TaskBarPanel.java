@@ -16,6 +16,8 @@ public class TaskBarPanel {
     private JLabel startButtonLabel = new JLabel();
     // Виджет блокировки/выключения системы
     SystemBlockShutdownWidgetPanel blockOffWidget = new SystemBlockShutdownWidgetPanel();
+    // Виджет настройки звука системы
+    VolumeSettingsWidgetPanel volumeWidget = new VolumeSettingsWidgetPanel();
 
     public TaskBarPanel() {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -36,6 +38,7 @@ public class TaskBarPanel {
         // Добавление всех дочерних элементов в панель задач
         taskBarPanel.add(startButtonPanel);
         taskBarPanel.add(Box.createHorizontalGlue()); // горизонтальный "наполнитель-клей"
+        taskBarPanel.add(volumeWidget.getPanel()); //виджет звука
         taskBarPanel.add(blockOffWidget.getPanel());
 
         // Набивка главной панели заполнителем и добавление вниз контейнера панели задач
