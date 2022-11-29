@@ -31,7 +31,7 @@ public class VolumeSettingsWidgetPanel {
 
     private void setupVolumeSettingsPanel() {
         volumePanel.setOpaque(false);
-        volumePanel.addMouseListener(new TaskBarMouseListener());
+        volumePanel.addMouseListener(new VolumeSettingsPanelMouseListener());
         volumePanel.setLayout(new BoxLayout(volumePanel, BoxLayout.PAGE_AXIS));
 
         volumePanel.setMinimumSize(new Dimension(23, 23));
