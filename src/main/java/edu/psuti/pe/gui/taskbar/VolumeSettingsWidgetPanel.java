@@ -45,7 +45,7 @@ public class VolumeSettingsWidgetPanel {
     }
 
 
-    // Класс-слушатель событий для панели выключения системы
+    // Класс-слушатель событий для панели звука
     class VolumeSettingsPanelMouseListener extends TaskBarMouseListener {
         @Override
         public void mouseReleased(MouseEvent e) {
