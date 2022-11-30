@@ -22,16 +22,16 @@ public class SystemSettingsWidgetPanel {
 
     private void setupMainPanel() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.setMinimumSize(new Dimension(23, 22));
-        panel.setPreferredSize(new Dimension(23, 22));
-        panel.setMaximumSize(new Dimension(23, 22));
+        panel.setMinimumSize(new Dimension(23, 23));
+        panel.setPreferredSize(new Dimension(23, 23));
+        panel.setMaximumSize(new Dimension(23, 23));
         panel.setOpaque(false);
         panel.add(systemSettingsPanel);
     }
 
     private void setupSystemSettingsPanel() {
         systemSettingsPanel.setOpaque(false);
-        systemSettingsPanel.addMouseListener(new SystemSettingsPanelMouseListener());
+        systemSettingsPanel.addMouseListener(new TaskBarMouseListener());
         systemSettingsPanel.setLayout(new BoxLayout(systemSettingsPanel, BoxLayout.PAGE_AXIS));
 
         systemSettingsPanel.setMinimumSize(new Dimension(23, 23));

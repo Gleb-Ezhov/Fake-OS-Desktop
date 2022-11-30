@@ -20,6 +20,14 @@ public class TaskBarPanel {
     VolumeSettingsWidgetPanel volumeWidget = new VolumeSettingsWidgetPanel();
     // Виджет настроек системы
     SystemSettingsWidgetPanel systemSettingsWidget = new SystemSettingsWidgetPanel();
+    // Виджет корзины
+    TrashBinWidgetPanel trashBinWidget = new TrashBinWidgetPanel();
+    // Виджет edit paste
+    EditPasteWidgetPanel editPasteWidget = new EditPasteWidgetPanel();
+    // Виджет времени и даты системы
+    DateTimeWidgetPanel dateTimeWidget = new DateTimeWidgetPanel();
+    // Виджет смены языка
+    LanguageChangeWidgetPanel languageChangeWidget = new LanguageChangeWidgetPanel();
 
     public TaskBarPanel() {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -40,8 +48,12 @@ public class TaskBarPanel {
         // Добавление всех дочерних элементов в панель задач
         taskBarPanel.add(startButtonPanel);
         taskBarPanel.add(Box.createHorizontalGlue()); // горизонтальный "наполнитель-клей"
+        taskBarPanel.add(editPasteWidget.getPanel()); //виджет edit paste
+        taskBarPanel.add(trashBinWidget.getPanel()); //виджет корзины
         taskBarPanel.add(systemSettingsWidget.getPanel()); //виджет настроек системы
         taskBarPanel.add(volumeWidget.getPanel()); //виджет звука
+        taskBarPanel.add(languageChangeWidget.getPanel()); //виджет смены языка
+        taskBarPanel.add(dateTimeWidget.getPanel()); //виджет даты и времени
         taskBarPanel.add(blockOffWidget.getPanel());
 
 
