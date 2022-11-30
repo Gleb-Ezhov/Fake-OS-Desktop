@@ -46,7 +46,6 @@ public class TitleBarPanel extends JPanel implements MouseListener {
         setBackground(new Color(222, 224, 226));
         addMouseListener(this);
 
-        // В высоту добавляется пространство для отрисовки тени
         setMinimumSize(new Dimension(Integer.MAX_VALUE, 29));
         setPreferredSize(new Dimension(Integer.MAX_VALUE, 29));
         setMaximumSize(new Dimension(Integer.MAX_VALUE, 29));
@@ -180,7 +179,7 @@ public class TitleBarPanel extends JPanel implements MouseListener {
     // Ниже методы для манипуляций иконоками лейблов и панелями для кнопок управления окном
 
     public void swapMaximizeRestoreButton() {
-        if (((TitleBarMouseListener)((JPanel)getComponent(3)).getMouseListeners()[0]).getButtonType() == TitleBarButtonType.MAXIMIZE) {
+        if (((TitleBarMouseListener)getComponent(3).getMouseListeners()[0]).getButtonType() == TitleBarButtonType.MAXIMIZE) {
             remove(3);
             add(restoreButtonPanel, 3);
             setExitedIconForRestoreButton();

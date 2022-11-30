@@ -43,6 +43,7 @@ public class WindowPanel extends JPanel implements MouseListener {
     public void setId(int id) { this.id = id; }
     public Rectangle getPreviousBounds() { return previousBounds; }
     public void setPreviousBounds(Rectangle bounds) { previousBounds = bounds; }
+    public JPanel getContentPanel() { return contentPanel; }
 
     // Ширина окна без учёта границы с тенью
     private int getContentWidth() {
