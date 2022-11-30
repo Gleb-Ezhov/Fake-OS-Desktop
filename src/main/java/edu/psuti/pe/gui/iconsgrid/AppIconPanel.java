@@ -1,6 +1,6 @@
 package edu.psuti.pe.gui.iconsgrid;
 
-import edu.psuti.pe.gui.apps.dolphin.DolphinWindow;
+import edu.psuti.pe.gui.apps.dolphin.Window;
 import edu.psuti.pe.gui.window.WindowPanel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
@@ -109,7 +109,7 @@ public class AppIconPanel extends JPanel {
             if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
                 System.out.println("AppIconPanel double clicked");
                 if (appName.equals("Dolphin")) {
-                    WindowPanel dolphin = new DolphinWindow(appIconResource, appName, 1000, 500);
+                    WindowPanel dolphin = new Window(appIconResource, appName, 1000, 500);
                     windowsManager.addWindow(dolphin);
                 } else {
                     WindowPanel testWindow = new WindowPanel(appIconResource, appName, 300, 350);

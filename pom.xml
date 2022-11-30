@@ -59,6 +59,24 @@
                     <include>go-up-black.svg</include>
                     <include>go-up-gray.svg</include>
 
+                    <!-- Dolphin Resources -->
+                    <include>go-previous.svg</include>
+                    <include>go-next.svg</include>
+                    <include>view-list-icons.svg</include>
+                    <include>view-list-details.svg</include>
+                    <include>view-list-tree.svg</include>
+                    <include>view-right-new.svg</include>
+                    <include>edit-find.svg</include>
+                    <include>application-menu.svg</include>
+                    <include>dolphin/desktop.svg</include>
+                    <include>dolphin/docs.svg</include>
+                    <include>dolphin/downloads.svg</include>
+                    <include>dolphin/home.svg</include>
+                    <include>dolphin/images.svg</include>
+                    <include>dolphin/music.svg</include>
+                    <include>dolphin/trash.svg</include>
+                    <include>dolphin/video.svg</include>
+
                     <!-- Fonts -->
                     <include>Hack-Regular.ttf</include>
                     <include>NotoSans-Regular.ttf</include>
