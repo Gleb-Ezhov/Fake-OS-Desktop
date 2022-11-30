@@ -22,16 +22,16 @@ public class VolumeSettingsWidgetPanel {
 
     private void setupMainPanel() {
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-        panel.setMinimumSize(new Dimension(23, 22));
-        panel.setPreferredSize(new Dimension(23, 22));
-        panel.setMaximumSize(new Dimension(23, 22));
+        panel.setMinimumSize(new Dimension(23, 23));
+        panel.setPreferredSize(new Dimension(23, 23));
+        panel.setMaximumSize(new Dimension(23, 23));
         panel.setOpaque(false);
         panel.add(volumePanel);
     }
 
     private void setupVolumeSettingsPanel() {
         volumePanel.setOpaque(false);
-        volumePanel.addMouseListener(new VolumeSettingsPanelMouseListener());
+        volumePanel.addMouseListener(new TaskBarMouseListener());
         volumePanel.setLayout(new BoxLayout(volumePanel, BoxLayout.PAGE_AXIS));
 
         volumePanel.setMinimumSize(new Dimension(23, 23));
