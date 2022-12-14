@@ -41,6 +41,10 @@
                     <include>system-shutdown.svg</include>
                     <include>system-lock-screen.svg</include>
                     <include>start.svgz</include>
+                    <include>audio-volume-muted.svg</include>
+                    <include>edit-paste.svg</include>
+                    <include>systemsettings.svg</include>
+                    <include>user-trash.svg</include>
 
                     <!-- Programs Resources -->
                     <include>dolphin.svg</include>
