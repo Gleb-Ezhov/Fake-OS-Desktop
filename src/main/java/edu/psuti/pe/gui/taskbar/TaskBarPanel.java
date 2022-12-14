@@ -14,20 +14,16 @@ public class TaskBarPanel {
     // Панель для кнопки запуска "Меню приложений"
     private JPanel startButtonPanel = new JPanel();
     private JLabel startButtonLabel = new JLabel();
+    // Кнопка "Параметры системы"
+    private JPanel systemSettingsBtnPanel = new JPanel();
+    private JLabel systemSettingsBtnLabel = new JLabel();
+    // Кнопка "Корзина"
+    private JPanel trashBinBtnPanel = new JPanel();
+    private JLabel trashBinBtnLabel = new JLabel();
     // Виджет блокировки/выключения системы
     SystemBlockShutdownWidgetPanel blockOffWidget = new SystemBlockShutdownWidgetPanel();
-    // Виджет настройки звука системы
-    VolumeSettingsWidgetPanel volumeWidget = new VolumeSettingsWidgetPanel();
-    // Виджет настроек системы
-    SystemSettingsWidgetPanel systemSettingsWidget = new SystemSettingsWidgetPanel();
-    // Виджет корзины
-    TrashBinWidgetPanel trashBinWidget = new TrashBinWidgetPanel();
-    // Виджет edit paste
-    EditPasteWidgetPanel editPasteWidget = new EditPasteWidgetPanel();
-    // Виджет времени и даты системы
-    DateTimeWidgetPanel dateTimeWidget = new DateTimeWidgetPanel();
-    // Виджет смены языка
-    LanguageChangeWidgetPanel languageChangeWidget = new LanguageChangeWidgetPanel();
+    // Виджет "Состояние и уведомления"
+    StatusAndNotificationsWidgetPanel sttsAndNtfctnsWidget = new StatusAndNotificationsWidgetPanel();
 
     public TaskBarPanel() {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
@@ -44,18 +40,16 @@ public class TaskBarPanel {
 
         // Настройка/инциализация дочерних элементов панели задач
         setupStartButtonPanel();
+        setupSystemSettingsBtnPanel();
+        setupTrashBinBtnPanel();
 
         // Добавление всех дочерних элементов в панель задач
         taskBarPanel.add(startButtonPanel);
         taskBarPanel.add(Box.createHorizontalGlue()); // горизонтальный "наполнитель-клей"
-        taskBarPanel.add(editPasteWidget.getPanel()); //виджет edit paste
-        taskBarPanel.add(trashBinWidget.getPanel()); //виджет корзины
-        taskBarPanel.add(systemSettingsWidget.getPanel()); //виджет настроек системы
-        taskBarPanel.add(volumeWidget.getPanel()); //виджет звука
-        taskBarPanel.add(languageChangeWidget.getPanel()); //виджет смены языка
-        taskBarPanel.add(dateTimeWidget.getPanel()); //виджет даты и времени
+        taskBarPanel.add(systemSettingsBtnPanel);
+        taskBarPanel.add(trashBinBtnPanel);
+        taskBarPanel.add(sttsAndNtfctnsWidget);
         taskBarPanel.add(blockOffWidget.getPanel());
-
 
         // Набивка главной панели заполнителем и добавление вниз контейнера панели задач
         mainPanel.add(Box.createVerticalGlue());
@@ -80,5 +74,37 @@ public class TaskBarPanel {
                 35, 35));
 
         startButtonPanel.add(startButtonLabel);
+    }
+
+    private void setupSystemSettingsBtnPanel() {
+        systemSettingsBtnPanel.setOpaque(false);
+        systemSettingsBtnPanel.addMouseListener(new TaskBarMouseListener());
+        systemSettingsBtnPanel.setLayout(new BoxLayout(systemSettingsBtnPanel, BoxLayout.PAGE_AXIS));
+
+        systemSettingsBtnPanel.setMinimumSize(new Dimension(45, 45));
+        systemSettingsBtnPanel.setPreferredSize(new Dimension(45, 45));
+        systemSettingsBtnPanel.setMaximumSize(new Dimension(45, 45));
+        systemSettingsBtnPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        systemSettingsBtnLabel.setIcon(imageHelper.createImageIconFromSvg("systemsettings.svg", "System settings button",
+                35, 35));
+
+        systemSettingsBtnPanel.add(systemSettingsBtnLabel);
+    }
+
+    private void setupTrashBinBtnPanel() {
+        trashBinBtnPanel.setOpaque(false);
+        trashBinBtnPanel.addMouseListener(new TaskBarMouseListener());
+        trashBinBtnPanel.setLayout(new BoxLayout(trashBinBtnPanel, BoxLayout.PAGE_AXIS));
+
+        trashBinBtnPanel.setMinimumSize(new Dimension(45, 45));
+        trashBinBtnPanel.setPreferredSize(new Dimension(45, 45));
+        trashBinBtnPanel.setMaximumSize(new Dimension(45, 45));
+        trashBinBtnPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        trashBinBtnLabel.setIcon(imageHelper.createImageIconFromSvg("user-trash.svg", "Trash bin button",
+                35, 35));
+
+        trashBinBtnPanel.add(trashBinBtnLabel);
     }
 }
