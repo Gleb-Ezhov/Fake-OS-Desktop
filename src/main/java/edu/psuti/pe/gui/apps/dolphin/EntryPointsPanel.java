@@ -23,9 +23,9 @@ public class EntryPointsPanel extends JPanel {
         setBackground(Color.pink);
         addMouseListener(new EntryPointsMouseListener());
 
-        setMinimumSize(new Dimension(200, Integer.MAX_VALUE));
-        setPreferredSize(new Dimension(200, Integer.MAX_VALUE));
-        setMaximumSize(new Dimension(200, Integer.MAX_VALUE));
+        setMinimumSize(new Dimension(200, 600));
+        setPreferredSize(new Dimension(200, 600));
+        setMaximumSize(new Dimension(200, 600));
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         // Настройка надписи "Точки входа"
@@ -87,7 +87,7 @@ public class EntryPointsPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(new Color(175, 178, 180));
-        g2d.drawLine(199, 0, 1, getHeight());
+        g2d.drawLine(199, 0, 199, getHeight());
     }
 
     class EntryPointsMouseListener implements MouseListener {
