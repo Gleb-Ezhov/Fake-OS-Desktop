@@ -16,9 +16,9 @@ public class EntryPointItemPanel extends JPanel {
     public boolean isSelected = false;
 
     public EntryPointItemPanel(String text, String imageResource,
-                               String description, Window dolphinWindow) {
+                               String description, EntryPointsPanel entryPointsPanel) {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        addMouseListener(new EntryPointItemMouseListener(dolphinWindow));
+        addMouseListener(new EntryPointItemMouseListener(entryPointsPanel));
         setBackground(Color.gray);
         setOpaque(false);
 
