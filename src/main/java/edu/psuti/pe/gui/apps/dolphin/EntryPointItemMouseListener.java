@@ -1,16 +1,14 @@
 package edu.psuti.pe.gui.apps.dolphin;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 public class EntryPointItemMouseListener implements MouseListener {
-    private Window dolphinWindow;
+    private EntryPointsPanel parentPanel;
 
-    public EntryPointItemMouseListener(Window dolphinWindow) {
-        this.dolphinWindow = dolphinWindow;
+    public EntryPointItemMouseListener(EntryPointsPanel entryPointsPanel) {
+        this.parentPanel = entryPointsPanel;
     }
 
     @Override
@@ -20,8 +18,8 @@ public class EntryPointItemMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (dolphinWindow.isThereSelectedItem()) {
-            dolphinWindow.resetSelectionOnAllItems();
+        if (parentPanel.isThereSelectedItem()) {
+            parentPanel.resetSelectionOnAllItems();
         }
 
         EntryPointItemPanel thisComponent = (EntryPointItemPanel) e.getComponent();
@@ -30,7 +28,7 @@ public class EntryPointItemMouseListener implements MouseListener {
         thisComponent.repaint();
 
         thisComponent.isSelected = true;
-        dolphinWindow.setSelectedItemExistenceFlag(true);
+        parentPanel.setSelectedItemExistenceFlag(true);
     }
 
     @Override
