@@ -1,7 +1,7 @@
 package edu.psuti.pe.gui.apps.dolphin;
 
+import edu.psuti.pe.gui.helper.CustomTextLabel;
 import edu.psuti.pe.gui.helper.ImageHelper;
-import edu.psuti.pe.gui.helper.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +27,9 @@ public class ToolbarPanel extends JPanel {
     // Кнопка "Таблица"
     private JPanel tableBtnPanel = new JPanel();
     private JLabel tableBtnLabel = new JLabel();
+    // Текст пути
+    private JPanel pathPanel = new JPanel();
+    private CustomTextLabel pathLabel;
     // Кнопка "Разделить область просмотра на две панели"
     private JPanel splitViewportBtnPanel = new JPanel();
     private JLabel splitViewportBtnLabel = new JLabel();
@@ -49,6 +52,7 @@ public class ToolbarPanel extends JPanel {
         // Настройка/инициализация дочерних элементов
         setupAllButtons();
         setupDelimiterPanel();
+        setupPathPanel();
 
         // Добавление всех дочерних элементов
         add(goPreviousBtnPanel);
@@ -63,6 +67,7 @@ public class ToolbarPanel extends JPanel {
         add(Box.createHorizontalStrut(2));
         add(tableBtnPanel);
         add(Box.createHorizontalStrut(15));
+        add(pathPanel);
         add(Box.createHorizontalGlue());
         add(Box.createHorizontalStrut(4));
         add(splitViewportBtnPanel);
@@ -70,6 +75,15 @@ public class ToolbarPanel extends JPanel {
         add(searchFilesBtnPanel);
         add(Box.createHorizontalStrut(2));
         add(toolbarMenuBtnPanel);
+    }
+
+    public void updatePath(String path) {
+        pathPanel.remove(pathLabel);
+        pathLabel = new CustomTextLabel(path, new Font("Noto Sans Regular", Font.PLAIN, 14),
+                "black", false, 0,
+                JLabel.CENTER, JLabel.LEFT);
+        pathPanel.add(pathLabel);
+        pathPanel.validate();
     }
 
     private void setupAllButtons() {
@@ -105,6 +119,20 @@ public class ToolbarPanel extends JPanel {
         delimiterPanel.setMinimumSize(new Dimension(1, 34));
         delimiterPanel.setPreferredSize(new Dimension(1, 34));
         delimiterPanel.setMaximumSize(new Dimension(1, 34));
+    }
+
+    private void setupPathPanel() {
+        pathPanel.setLayout(new BoxLayout(pathPanel, BoxLayout.LINE_AXIS));
+        pathPanel.setOpaque(false);
+        pathPanel.setBackground(Color.green);
+
+        pathLabel = new CustomTextLabel("placeholder text", new Font("Noto Sans Regular", Font.PLAIN, 14),
+                "black", false, 0,
+                JLabel.CENTER, JLabel.LEFT);
+        pathLabel.setOpaque(false);
+        pathLabel.setBackground(Color.lightGray);
+
+        pathPanel.add(pathLabel);
     }
 
     @Override

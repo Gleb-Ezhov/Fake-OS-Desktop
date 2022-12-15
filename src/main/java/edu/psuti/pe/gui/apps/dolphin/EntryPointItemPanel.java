@@ -13,12 +13,15 @@ public class EntryPointItemPanel extends JPanel {
     private JPanel textPanel = new JPanel();
     private CustomTextLabel textLabel;
 
+    public EntryPointItemType type;
     public boolean isSelected = false;
 
     public EntryPointItemPanel(String text, String imageResource,
-                               String description, EntryPointsPanel entryPointsPanel) {
+                               String description, EntryPointItemType type,
+                               EntryPointsPanel entryPointsPanel, FilesViewportPanel filesViewportPanel) {
+        this.type = type;
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        addMouseListener(new EntryPointItemMouseListener(entryPointsPanel));
+        addMouseListener(new EntryPointItemMouseListener(entryPointsPanel, filesViewportPanel));
         setBackground(Color.gray);
         setOpaque(false);
 

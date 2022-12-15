@@ -11,10 +11,10 @@ public class Window extends WindowPanel {
     private ToolbarPanel toolbarPanel = new ToolbarPanel();
     // Главная панель
     private JPanel mainPanel = new JPanel();
-    // Панель с точками входа в файловую систему
-    private EntryPointsPanel entryPointsPanel = new EntryPointsPanel();
     // Панель с окном просмотра списка файлов
-    private FilesViewportPanel filesViewportPanel = new FilesViewportPanel();
+    private FilesViewportPanel filesViewportPanel = new FilesViewportPanel(toolbarPanel);
+    // Панель с точками входа в файловую систему
+    private EntryPointsPanel entryPointsPanel = new EntryPointsPanel(filesViewportPanel);
 
     public Window(String appIconResource, String appTitle, int width, int height) {
         super(appIconResource, appTitle, width, height);
