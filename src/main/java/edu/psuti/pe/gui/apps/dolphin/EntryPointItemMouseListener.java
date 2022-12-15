@@ -3,12 +3,15 @@ package edu.psuti.pe.gui.apps.dolphin;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.nio.file.Paths;
 
 public class EntryPointItemMouseListener implements MouseListener {
     private EntryPointsPanel parentPanel;
+    private FilesViewportPanel filesViewportPanel;
 
-    public EntryPointItemMouseListener(EntryPointsPanel entryPointsPanel) {
+    public EntryPointItemMouseListener(EntryPointsPanel entryPointsPanel, FilesViewportPanel filesViewportPanel) {
         this.parentPanel = entryPointsPanel;
+        this.filesViewportPanel = filesViewportPanel;
     }
 
     @Override
@@ -29,6 +32,34 @@ public class EntryPointItemMouseListener implements MouseListener {
 
         thisComponent.isSelected = true;
         parentPanel.setSelectedItemExistenceFlag(true);
+
+        // Не открываются директории, в которых содержатся ссылки (из них не достаётся FileInfo).
+        switch (thisComponent.type) {
+            case HOME:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/"));
+                break;
+            case DESKTOP:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/Рабочий стол/"));
+                break;
+            case DOCS:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/Документы/"));
+                break;
+            case DOWNLOADS:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/Загрузки/"));
+                break;
+            case MUSIC:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/Музыка/"));
+                break;
+            case IMAGES:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/Изображения/"));
+                break;
+            case VIDEO:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/Видео/"));
+                break;
+            case TRASH:
+                filesViewportPanel.updateList(Paths.get(System.getProperty("user.home") + "/.local/share/Trash/files"));
+                break;
+        }
     }
 
     @Override

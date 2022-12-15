@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,11 @@ public class EntryPointsPanel extends JPanel {
     // Список с точками входа
     private ArrayList<EntryPointItemPanel> entryPointItemPanels = new ArrayList<>(8);
     boolean selectedItemExistenceFlag = false;
+    // FilesViewport для его дальнейшей передачи точкам входа
+    FilesViewportPanel filesViewportPanel;
 
-    public EntryPointsPanel() {
+    public EntryPointsPanel(FilesViewportPanel filesViewportPanel) {
+        this.filesViewportPanel = filesViewportPanel;
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setOpaque(false);
         setBackground(Color.pink);
@@ -50,21 +54,21 @@ public class EntryPointsPanel extends JPanel {
 
     private void fillEntryPointPanel(List<EntryPointItemPanel> items) {
         items.add(new EntryPointItemPanel("Домашняя папка", "dolphin/home.svg",
-                "Home directory", this));
+                "Home directory", EntryPointItemType.HOME, this, filesViewportPanel));
         items.add(new EntryPointItemPanel("Рабочий стол", "dolphin/desktop.svg",
-                "Desktop directory", this));
+                "Desktop directory", EntryPointItemType.DESKTOP, this, filesViewportPanel));
         items.add(new EntryPointItemPanel("Документы", "dolphin/docs.svg",
-                "Documents directory", this));
+                "Documents directory", EntryPointItemType.DOCS, this, filesViewportPanel));
         items.add(new EntryPointItemPanel("Загрузки", "dolphin/downloads.svg",
-                "Downloads directory", this));
+                "Downloads directory", EntryPointItemType.DOWNLOADS, this, filesViewportPanel));
         items.add(new EntryPointItemPanel("Музыка", "dolphin/music.svg",
-                "Music directory", this));
+                "Music directory", EntryPointItemType.MUSIC, this, filesViewportPanel));
         items.add(new EntryPointItemPanel("Изображения", "dolphin/images.svg",
-                "Images directory", this));
+                "Images directory", EntryPointItemType.IMAGES, this, filesViewportPanel));
         items.add(new EntryPointItemPanel("Видеофайлы", "dolphin/video.svg",
-                "Video directory", this));
+                "Video directory", EntryPointItemType.VIDEO, this, filesViewportPanel));
         items.add(new EntryPointItemPanel("Корзина", "dolphin/trash.svg",
-                "Resycle bin directory", this));
+                "Recycle bin directory", EntryPointItemType.TRASH, this, filesViewportPanel));
 
         for (EntryPointItemPanel item : items) {
             add(item);
