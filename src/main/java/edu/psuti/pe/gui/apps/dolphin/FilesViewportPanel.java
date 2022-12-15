@@ -4,10 +4,18 @@ import edu.psuti.pe.gui.helper.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class FilesViewportPanel extends JPanel {
+    private JScrollPane scrollViewportPane = new JScrollPane(); // панель прокурутки для вьюпорта с файлами
     private JPanel viewportPanel = new JPanel(); // вьюпорт со списком файлов
     private JPanel viewportStatePanel = new JPanel(); // панель снизу для краткой информации
+
+    // Список с текущими элементами
+    private ArrayList<FilesViewportItemPanel> filesViewportItems = new ArrayList<>(100);
+    boolean selectedItemExistenceFlag = false;
 
     public FilesViewportPanel() {
         setLayout(new GridBagLayout());
@@ -30,15 +38,37 @@ public class FilesViewportPanel extends JPanel {
         setupViewportStatePanel();
     }
 
+    public boolean isThereSelectedItem() { return selectedItemExistenceFlag; }
+    public void setSelectedItemExistenceFlag(boolean bool) { selectedItemExistenceFlag = bool; }
+
+    public void resetSelectionOnAllItems() {
+        for (FilesViewportItemPanel item : filesViewportItems) {
+            item.setOpaque(false);
+            item.repaint();
+            item.isSelected = false;
+        }
+    }
+
+
+    public void addItemsToViewport(Collection<FilesViewportItemPanel> items) {
+        for (FilesViewportItemPanel item : items) {
+            viewportPanel.add(item);
+        }
+        viewportPanel.validate();
+        viewportPanel.repaint();
+    }
+
     private void setupViewportPanel() {
-        viewportPanel.setLayout(new BoxLayout(viewportPanel, BoxLayout.LINE_AXIS));
+        scrollViewportPane.setMinimumSize(new Dimension(100, 100));
+        scrollViewportPane.setPreferredSize(new Dimension(100, 100));
+        scrollViewportPane.setViewportView(viewportPanel); // вьюпорт с файлами становится вьюпортом для панели прокрутки
+
+        viewportPanel.setLayout(new BoxLayout(viewportPanel, BoxLayout.PAGE_AXIS));
         viewportPanel.setOpaque(true);
         viewportPanel.setBackground(Color.white);
-
-        viewportPanel.setMinimumSize(new Dimension(100, 100));
-        viewportPanel.setPreferredSize(new Dimension(100, 100));
-        viewportPanel.setMaximumSize(new Dimension(100, 100));
-        viewportPanel.setBorder(new RoundedBorder(new Color(175, 178, 180), 6, new Insets(0, 0, 0, 0)));
+        // Размеры для ViewportPanel не проставлялись, чтобы он ресайзился отностельно своих элементов.
+        // Ниже закгруглённая граница, как в Dolphin, но она сейчас не нужна, т.к. ScrollPane сам создал границу.
+        //viewportPanel.setBorder(new RoundedBorder(new Color(175, 178, 180), 6, new Insets(0, 0, 0, 0)));
 
         GridBagConstraints viewportConstraints = new GridBagConstraints();
         viewportConstraints.gridx = 0;
@@ -46,7 +76,21 @@ public class FilesViewportPanel extends JPanel {
         viewportConstraints.weightx = 0.5;
         viewportConstraints.weighty = 0.5;
         viewportConstraints.fill = GridBagConstraints.BOTH;
-        add(viewportPanel, viewportConstraints);
+        add(scrollViewportPane, viewportConstraints); // в основную панель добавляется именно панель прокурутки
+
+        // тест вьюпорта
+        viewportTest1();
+    }
+
+    public void viewportTest1() {
+        for (int i = 0; i < 100; ++i) {
+            if (i % 2 == 0) {
+                filesViewportItems.add(new FilesViewportItemPanel(String.valueOf(i), false, this));
+            } else {
+                filesViewportItems.add(new FilesViewportItemPanel(String.valueOf(i), true, this));
+            }
+        }
+        addItemsToViewport(filesViewportItems);
     }
 
     private void setupViewportStatePanel() {

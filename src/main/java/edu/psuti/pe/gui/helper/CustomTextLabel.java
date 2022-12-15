@@ -52,7 +52,7 @@ public class CustomTextLabel extends JLabel {
      * @param isWrapUpEnabled Оборачивание текста. Если true, то текст переходит
      *                        к новой строке, если он достиг границы для переноса.
      * @param wrapUpWidth Граница для переноса текста в px.
-     * @param verticalAlignment Выравнивание текста в родительском контейнере
+     * @param verticalAlignment Выравнивание текста в данном лейбле
      *                          по веритикали. Например: JLabel.CENTER .
      * @param horizontalAlignment Выравнивание текста по горизонтали.
      */
