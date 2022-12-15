@@ -80,6 +80,8 @@
                     <include>dolphin/music.svg</include>
                     <include>dolphin/trash.svg</include>
                     <include>dolphin/video.svg</include>
+                    <include>dolphin/folder.svg</include>
+                    <include>dolphin/file.svg</include>
 
                     <!-- Fonts -->
                     <include>Hack-Regular.ttf</include>
