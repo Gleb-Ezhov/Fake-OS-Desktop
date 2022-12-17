@@ -2,6 +2,7 @@ package edu.psuti.pe.gui.window;
 
 import edu.psuti.pe.gui.helper.ComponentMover;
 import edu.psuti.pe.gui.helper.ComponentResizer;
+import edu.psuti.pe.gui.taskbar.AppTabPanel;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -14,6 +15,7 @@ public class WindowPanel extends JPanel implements MouseListener {
     private WindowsManager windowsManager = WindowsManager.getInstance(null);
     private ComponentMover componentMover;
     private final ComponentResizer componentResizer = new ComponentResizer();
+    private AppTabPanel appTabPanel; // вкладка программы для панели задач
 
     private String appTitle; // Название приложения
     private String appIconResource;
@@ -32,12 +34,14 @@ public class WindowPanel extends JPanel implements MouseListener {
     public WindowPanel(String appIconResource, String appTitle, int width, int height) {
         this.appTitle = appTitle;
         this.appIconResource = appIconResource;
+        appTabPanel = new AppTabPanel(appIconResource, appTitle);
 
         setupWindow(width, height);
         setupTitleBar();
         setupContentPanel();
     }
 
+    public AppTabPanel getAppTabPanel() { return appTabPanel; }
     public int getShadowPixels() { return shadowPixels; }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

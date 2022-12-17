@@ -1,5 +1,8 @@
 package edu.psuti.pe.gui.window;
 
+import edu.psuti.pe.gui.DesktopPanel;
+import edu.psuti.pe.gui.taskbar.TaskBarPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
@@ -9,6 +12,7 @@ import java.util.List;
 public class WindowsManager implements Serializable {
     private static WindowsManager windowsManager;
     private static JLayeredPane workspace;
+    private static TaskBarPanel taskBarPanel;
     private static List<WindowPanel> windows = new LinkedList<>();
 
     private WindowsManager() {}
@@ -16,31 +20,38 @@ public class WindowsManager implements Serializable {
     // getInstance при первом использовании принимает ссылку на рабочую область,
     // после этого в getInstance можно передавать null
     public static WindowsManager getInstance(JLayeredPane workspacePanel) {
-        if (workspace == null) {
+        if (workspace == null && workspacePanel != null) {
             workspace = workspacePanel;
+            taskBarPanel = ((DesktopPanel)workspace.getParent().getParent()).getTaskBarPanel();
         }
 
         if (windowsManager == null) {
             windowsManager = new WindowsManager();
-            return windowsManager;
-        } else {
-            return windowsManager;
         }
+        return windowsManager;
     }
 
     public void addWindow(WindowPanel window) {
+        // добавляется вкладка на панели задач
+        taskBarPanel.addAppTabPanel(window.getAppTabPanel());
+        // добавляется окно на рабочий стол
         windows.add(window);
         window.setId(windows.size() - 1);
         workspace.add(window);
         rearrangeWindows();
+        // обновление рабочей области
         workspace.validate();
         workspace.repaint();
     }
 
     public void removeWindow(WindowPanel window) {
+        // удаление вкладки на панели задач
+        taskBarPanel.removeAppTabPanel(window.getAppTabPanel());
+        // удаление окна с рабочего стола
         windows.remove(window);
         resetWindowsIds();
         workspace.remove(window);
+        // обновление рабочей области
         workspace.validate();
         workspace.repaint();
     }
