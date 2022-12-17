@@ -1,7 +1,5 @@
 package edu.psuti.pe.gui;
 
-import edu.psuti.pe.gui.helper.ComponentMover;
-import edu.psuti.pe.gui.helper.ComponentResizer;
 import edu.psuti.pe.gui.helper.ImageHelper;
 
 import javax.swing.*;
