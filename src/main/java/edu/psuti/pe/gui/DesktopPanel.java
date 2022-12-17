@@ -40,9 +40,9 @@ public class DesktopPanel extends JPanel {
         iconsGridPanel.setBackground(Color.YELLOW);
         workspacePanel.setOpaque(false);
         workspacePanel.setBackground(Color.cyan);
-        WindowsManager.getInstance(workspacePanel); // менеджер окон получает workspace
 
         addChildrenComponents();
+        WindowsManager.getInstance(workspacePanel); // менеджер окон получает workspace
     }
 
     private void addChildrenComponents() {
@@ -55,4 +55,6 @@ public class DesktopPanel extends JPanel {
     public JComponent getPanel() { return this; }
 
     public JLayeredPane getWorkspacePanel() { return workspacePanel; }
+
+    public TaskBarPanel getTaskBarPanel() { return taskBarPanel; }
 }

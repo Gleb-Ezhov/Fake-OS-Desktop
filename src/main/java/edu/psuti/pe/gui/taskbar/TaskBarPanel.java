@@ -54,10 +54,6 @@ public class TaskBarPanel {
         // Набивка главной панели заполнителем и добавление вниз контейнера панели задач
         mainPanel.add(Box.createVerticalGlue());
         mainPanel.add(taskBarPanel);
-
-        // test apptab
-        addAppTabPanel(new AppTabPanel());
-        addAppTabPanel(new AppTabPanel());
     }
 
     public JPanel getPanel() {
@@ -66,6 +62,12 @@ public class TaskBarPanel {
 
     public void addAppTabPanel(JPanel appTabPanel) {
         taskBarPanel.add(appTabPanel, 1);
+        taskBarPanel.validate();
+    }
+
+    public void removeAppTabPanel(JPanel appTabPanel) {
+        taskBarPanel.remove(appTabPanel);
+        taskBarPanel.validate();
     }
 
     private void setupStartButtonPanel() {

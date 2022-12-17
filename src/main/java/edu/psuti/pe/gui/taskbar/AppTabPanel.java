@@ -20,7 +20,7 @@ public class AppTabPanel extends JPanel {
     private JPanel namePanel = new JPanel();
     private CustomTextLabel appNameLabel;
 
-    public AppTabPanel() {
+    public AppTabPanel(String appIconResource, String appTitle) {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setOpaque(false);
         setBackground(Color.GREEN);
@@ -30,8 +30,8 @@ public class AppTabPanel extends JPanel {
         setMaximumSize(new Dimension(200, 45));
 
         setupGlowingPanel();
-        setupIconPanel();
-        setupNamePanel();
+        setupIconPanel(appIconResource, appTitle);
+        setupNamePanel(appTitle);
         setupTabPanel();
 
         add(glowingPanel);
@@ -46,7 +46,7 @@ public class AppTabPanel extends JPanel {
         glowingPanel.setMaximumSize(new Dimension(200, 3));
     }
 
-    private void setupIconPanel() {
+    private void setupIconPanel(String appIconResource, String appTitle) {
         iconPanel.setOpaque(true);
         iconPanel.setBackground(Color.orange);
         iconPanel.setLayout(new BoxLayout(iconPanel, BoxLayout.PAGE_AXIS));
@@ -56,13 +56,13 @@ public class AppTabPanel extends JPanel {
         iconPanel.setMaximumSize(new Dimension(42, 42));
         iconPanel.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
 
-        iconLabel.setIcon(imageHelper.createImageIconFromSvg("start.svgz", "Start app taskbar's tab",
+        iconLabel.setIcon(imageHelper.createImageIconFromSvg(appIconResource, appTitle + "tab",
                 30, 30));
 
         iconPanel.add(iconLabel);
     }
 
-    private void setupNamePanel() {
+    private void setupNamePanel(String appTitle) {
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.PAGE_AXIS));
         namePanel.setBackground(Color.yellow);
         namePanel.setOpaque(false);
@@ -72,7 +72,7 @@ public class AppTabPanel extends JPanel {
         namePanel.setMaximumSize(new Dimension(158, 42));
         namePanel.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 0));
 
-        appNameLabel = new CustomTextLabel("Placeholder Name",
+        appNameLabel = new CustomTextLabel(appTitle,
                 new Font("Noto Sans Regular", Font.PLAIN, 13),
                 "black", false, 0,
                 JLabel.CENTER, JLabel.LEFT);
