@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class FilesViewportPanel extends JPanel {
     // панель прокурутки для вьюпорта с файлами
@@ -101,7 +102,7 @@ public class FilesViewportPanel extends JPanel {
              * Cобираем информацию о всех файлах по указанному пути, с помощью потока данных (Stream API) все файлы пропускаем
              * через конструктор FileInfo, затем все экземпляры FileInfo собираем в список.
              */
-            List<FileInfo> rawFilesInfo = Files.list(path).map(FileInfo::new).toList();
+            List<FileInfo> rawFilesInfo = Files.list(path).map(FileInfo::new).collect(Collectors.toList());
 
             // Очистка списка, контейнера и счётчиков файлов
             filesViewportItems.clear();

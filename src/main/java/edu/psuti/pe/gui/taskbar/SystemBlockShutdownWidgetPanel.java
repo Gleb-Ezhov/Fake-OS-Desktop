@@ -5,7 +5,6 @@ import edu.psuti.pe.gui.helper.ImageHelper;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 // Панель виджета блокировки/выключения системы
 public class SystemBlockShutdownWidgetPanel {

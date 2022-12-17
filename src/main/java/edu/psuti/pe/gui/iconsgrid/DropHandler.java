@@ -44,7 +44,9 @@ public class DropHandler implements DropTargetListener, Serializable {
                 Object data = transferable.getTransferData(PanelDataFlavor.SHARED_INSTANCE);
 
                 // JAVA 18 pattern variable: если data есть экземпляр JPanel, то она присваивается переменной panel типа JPanel
-                if (data instanceof JPanel panel) {
+//                if (data instanceof JPanel panel) {
+                if (data instanceof JPanel) {
+                    JPanel panel = (JPanel)data;
 
                     DropTargetContext dtc = dtde.getDropTargetContext();
                     Component dropTargetComponent = dtc.getComponent();

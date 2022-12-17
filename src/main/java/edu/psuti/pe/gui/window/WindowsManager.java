@@ -2,10 +2,7 @@ package edu.psuti.pe.gui.window;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.AreaAveragingScaleFilter;
-import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
