@@ -16,6 +16,10 @@ public class Window extends WindowPanel {
     // Панель с точками входа в файловую систему
     private EntryPointsPanel entryPointsPanel = new EntryPointsPanel(filesViewportPanel);
 
+    // Singleton, который держит ссылку на filesViewportPanel, чтобы список файлов можно было изменять из
+    // любого места программы. Небольшой костыль, который помогает быстро решать задачи.
+    private FilesViewportSingleton fvs = FilesViewportSingleton.getInstance(filesViewportPanel);
+
     public Window(String appIconResource, String appTitle, int width, int height) {
         super(appIconResource, appTitle, width, height);
 

@@ -5,6 +5,7 @@ import edu.psuti.pe.gui.helper.ImageHelper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.nio.file.Path;
 
 // Элемента из списка выведенных файлов
 public class FilesViewportItemPanel extends JPanel {
@@ -19,10 +20,12 @@ public class FilesViewportItemPanel extends JPanel {
 
     public boolean isFile;
     public String name;
+    public Path path;
 
     public boolean isSelected = false;
 
-    public FilesViewportItemPanel(String name, boolean isFile, FilesViewportPanel filesViewport) {
+    public FilesViewportItemPanel(Path path, String name, boolean isFile, FilesViewportPanel filesViewport) {
+        this.path = path;
         this.name = name;
         this.isFile = isFile;
 

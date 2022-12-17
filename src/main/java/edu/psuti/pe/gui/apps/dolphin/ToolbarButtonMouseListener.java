@@ -6,8 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.nio.file.Paths;
 
 public class ToolbarButtonMouseListener implements MouseListener {
+    private ToolbarPanel parentPanel;
+
+    public ToolbarButtonMouseListener(ToolbarPanel toolbarPanel) {
+        parentPanel = toolbarPanel;
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -15,10 +22,17 @@ public class ToolbarButtonMouseListener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        JComponent thisComponent = (JComponent) e.getComponent();
+        ToolbarButtonPanel thisComponent = (ToolbarButtonPanel) e.getComponent();
         thisComponent.setOpaque(true);
         thisComponent.setBackground(new Color(189, 209, 225));
         thisComponent.repaint();
+
+        switch (thisComponent.type) {
+            case PREVIOUS:
+                FilesViewportSingleton.getInstance(null).getFilesViewportPanel()
+                        .updateList(Paths.get(parentPanel.currentPath).getParent());
+                break;
+        }
     }
 
     @Override

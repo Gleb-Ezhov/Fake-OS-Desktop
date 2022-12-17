@@ -1,5 +1,6 @@
 package edu.psuti.pe.gui.apps.dolphin;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -27,6 +28,11 @@ public class FilesViewportItemMouseListener implements MouseListener {
 
         thisComponent.isSelected = true;
         parentPanel.setSelectedItemExistenceFlag(true);
+
+        if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
+            System.out.println("Folder is double clicked.");
+            parentPanel.updateList(thisComponent.path);
+        }
     }
 
     @Override

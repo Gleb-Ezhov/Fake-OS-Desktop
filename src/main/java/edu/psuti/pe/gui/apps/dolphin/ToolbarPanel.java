@@ -11,34 +11,28 @@ public class ToolbarPanel extends JPanel {
     private final ImageHelper imageHelper = ImageHelper.getInstance();
 
     // Кнопка "Назад"
-    private JPanel goPreviousBtnPanel = new JPanel();
-    private JLabel goPreviousBtnLabel = new JLabel();
+    private ToolbarButtonPanel goPreviousBtnPanel;
     // Кнопка "Вперёд"
-    private JPanel goNextBtnPanel = new JPanel();
-    private JLabel goNextBtnLabel = new JLabel();
+    private ToolbarButtonPanel goNextBtnPanel;
     // Полоска-разделитель
     private JPanel delimiterPanel = new JPanel();
     // Кнопка "Значки"
-    private JPanel iconsBtnPanel = new JPanel();
-    private JLabel iconsBtnLabel = new JLabel();
+    private ToolbarButtonPanel iconsBtnPanel;
     // Кнопка "Столбцы"
-    private JPanel columnsBtnPanel = new JPanel();
-    private JLabel columnsBtnLabel = new JLabel();
+    private ToolbarButtonPanel columnsBtnPanel;
     // Кнопка "Таблица"
-    private JPanel tableBtnPanel = new JPanel();
-    private JLabel tableBtnLabel = new JLabel();
+    private ToolbarButtonPanel tableBtnPanel;
     // Текст пути
     private JPanel pathPanel = new JPanel();
     private CustomTextLabel pathLabel;
     // Кнопка "Разделить область просмотра на две панели"
-    private JPanel splitViewportBtnPanel = new JPanel();
-    private JLabel splitViewportBtnLabel = new JLabel();
+    private ToolbarButtonPanel splitViewportBtnPanel;
     // Кнопка "Поиск файлов и папок"
-    private JPanel searchFilesBtnPanel = new JPanel();
-    private JLabel searchFilesBtnLabel = new JLabel();
+    private ToolbarButtonPanel searchFilesBtnPanel;
     // Кнопка "Открыть меню"
-    private JPanel toolbarMenuBtnPanel = new JPanel();
-    private JLabel toolbarMenuBtnLabel = new JLabel();
+    private ToolbarButtonPanel toolbarMenuBtnPanel;
+
+    public String currentPath;
 
     public ToolbarPanel() {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
@@ -78,6 +72,7 @@ public class ToolbarPanel extends JPanel {
     }
 
     public void updatePath(String path) {
+        currentPath = path;
         pathPanel.remove(pathLabel);
         pathLabel = new CustomTextLabel(path, new Font("Noto Sans Regular", Font.PLAIN, 14),
                 "black", false, 0,
@@ -87,19 +82,28 @@ public class ToolbarPanel extends JPanel {
     }
 
     private void setupAllButtons() {
-        setupToolbarButton(goPreviousBtnPanel, goPreviousBtnLabel, "go-previous.svg", "Go Previous");
-        setupToolbarButton(goNextBtnPanel, goNextBtnLabel, "go-next.svg", "Go Next");
-        setupToolbarButton(iconsBtnPanel, iconsBtnLabel, "view-list-icons.svg", "Icons view of files");
-        setupToolbarButton(columnsBtnPanel, columnsBtnLabel, "view-list-details.svg", "Columns view of files");
-        setupToolbarButton(tableBtnPanel, tableBtnLabel, "view-list-tree.svg", "Table view of files");
-        setupToolbarButton(splitViewportBtnPanel, splitViewportBtnLabel, "view-right-new.svg", "Split viewport into two panes");
-        setupToolbarButton(searchFilesBtnPanel, searchFilesBtnLabel, "edit-find.svg", "Search for files and folders");
-        setupToolbarButton(toolbarMenuBtnPanel, toolbarMenuBtnLabel, "application-menu.svg", "Open toolbar menu");
+        goPreviousBtnPanel = new ToolbarButtonPanel("go-previous.svg", "Go Previous", ToolbarButtonType.PREVIOUS, this);
+        goNextBtnPanel = new ToolbarButtonPanel("go-next.svg", "Go Next", ToolbarButtonType.NEXT, this);
+        iconsBtnPanel = new ToolbarButtonPanel("view-list-icons.svg", "Icons view of files", ToolbarButtonType.ICONS, this);
+        columnsBtnPanel = new ToolbarButtonPanel("view-list-details.svg", "Columns view of files", ToolbarButtonType.COLUMNS, this);
+        tableBtnPanel = new ToolbarButtonPanel("view-list-tree.svg", "Table view of files", ToolbarButtonType.TABLE, this);
+        splitViewportBtnPanel = new ToolbarButtonPanel("view-right-new.svg", "Split viewport into two panes", ToolbarButtonType.SPLIT, this);
+        searchFilesBtnPanel = new ToolbarButtonPanel("edit-find.svg", "Search for files and folders", ToolbarButtonType.SEARCH, this);
+        toolbarMenuBtnPanel = new ToolbarButtonPanel("application-menu.svg", "Open toolbar menu", ToolbarButtonType.MENU, this);
+
+//        setupToolbarButton(goPreviousBtnPanel, goPreviousBtnLabel, "go-previous.svg", "Go Previous");
+//        setupToolbarButton(goNextBtnPanel, goNextBtnLabel, "go-next.svg", "Go Next");
+//        setupToolbarButton(iconsBtnPanel, iconsBtnLabel, "view-list-icons.svg", "Icons view of files");
+//        setupToolbarButton(columnsBtnPanel, columnsBtnLabel, "view-list-details.svg", "Columns view of files");
+//        setupToolbarButton(tableBtnPanel, tableBtnLabel, "view-list-tree.svg", "Table view of files");
+//        setupToolbarButton(splitViewportBtnPanel, splitViewportBtnLabel, "view-right-new.svg", "Split viewport into two panes");
+//        setupToolbarButton(searchFilesBtnPanel, searchFilesBtnLabel, "edit-find.svg", "Search for files and folders");
+//        setupToolbarButton(toolbarMenuBtnPanel, toolbarMenuBtnLabel, "application-menu.svg", "Open toolbar menu");
     }
 
     private void setupToolbarButton(JPanel panel, JLabel label, String imageName, String imageDescription) {
         panel.setOpaque(false);
-        panel.addMouseListener(new ToolbarButtonMouseListener());
+        //panel.addMouseListener(new ToolbarButtonMouseListener());
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
         panel.setMinimumSize(new Dimension(34, 34));

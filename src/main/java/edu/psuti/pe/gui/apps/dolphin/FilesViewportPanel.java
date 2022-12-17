@@ -114,10 +114,10 @@ public class FilesViewportPanel extends JPanel {
             // Заполнение списка, счётчиков и панели файлов новыми данными
             for (FileInfo info : rawFilesInfo) {
                 if (info.getType() == FileInfo.FileType.DIRECTORY) {
-                    filesViewportItems.add(new FilesViewportItemPanel(info.getFileName(), false, this));
+                    filesViewportItems.add(new FilesViewportItemPanel(info.getPath(), info.getFileName(), false, this));
                     ++foldersCount;
                 } else {
-                    filesViewportItems.add(new FilesViewportItemPanel(info.getFileName(), true, this));
+                    filesViewportItems.add(new FilesViewportItemPanel(info.getPath(), info.getFileName(), true, this));
                     ++filesCount;
                 }
             }
