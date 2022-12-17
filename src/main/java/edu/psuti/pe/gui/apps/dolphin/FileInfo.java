@@ -11,17 +11,18 @@ public class FileInfo {
     public enum FileType {
         FILE("F"), DIRECTORY("D");
 
-        private String name;
+        private String typeName;
 
-        public String getName() {
-            return name;
+        public String getTypeName() {
+            return typeName;
         }
 
-        FileType(String name) {
-            this.name = name;
+        FileType(String typeName) {
+            this.typeName = typeName;
         }
     }
 
+    private Path path;
     private String fileName;
     private FileType type;
     private long size;
@@ -29,7 +30,8 @@ public class FileInfo {
 
     public FileInfo(Path path) {
         try {
-            // возвращает директорию файла
+            this.path = path;
+            // возвращает имя файла
             this.fileName = path.getFileName().toString();
             // возвращает размер файла в байтах и может выбросить IOException
             this.size = Files.size(path);
@@ -45,6 +47,8 @@ public class FileInfo {
             throw new RuntimeException("Unable to create file info from path.");
         }
     }
+
+    public Path getPath() { return path; }
 
     public String getFileName() {
         return fileName;

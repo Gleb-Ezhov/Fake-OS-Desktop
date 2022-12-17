@@ -107,7 +107,7 @@ public class AppIconPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
-                System.out.println("AppIconPanel double clicked");
+                System.out.println("AppIconPanel double clicked.");
                 if (appName.equals("Dolphin")) {
                     WindowPanel dolphin = new Window(appIconResource, appName, 1000, 500);
                     windowsManager.addWindow(dolphin);
