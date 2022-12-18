@@ -1,6 +1,7 @@
 package edu.psuti.pe.gui.window;
 
 import edu.psuti.pe.gui.DesktopPanel;
+import edu.psuti.pe.gui.taskbar.AppTabPanel;
 import edu.psuti.pe.gui.taskbar.TaskBarPanel;
 
 import javax.swing.*;
@@ -31,6 +32,10 @@ public class WindowsManager implements Serializable {
         return windowsManager;
     }
 
+    public int getWindowsCount() {
+        return windows.size();
+    }
+
     public void addWindow(WindowPanel window) {
         // добавляется вкладка на панели задач
         taskBarPanel.addAppTabPanel(window.getAppTabPanel());
@@ -42,6 +47,9 @@ public class WindowsManager implements Serializable {
         // обновление рабочей области
         workspace.validate();
         workspace.repaint();
+
+        // добавленное окно становится активным
+        setupAppTabsActivity(window.getAppTabPanel());
     }
 
     public void removeWindow(WindowPanel window) {
@@ -54,6 +62,33 @@ public class WindowsManager implements Serializable {
         // обновление рабочей области
         workspace.validate();
         workspace.repaint();
+
+        // крайнее окно в списке становится активным
+        if (windows.size() != 0) {
+            moveWindowToFront(windows.get(windows.size() - 1));
+        }
+    }
+
+    public void hideWindow(WindowPanel window) {
+        // вкладка на панели задач становится неактивной
+        window.getAppTabPanel().setTabInactive();
+        // скрытие окна
+        window.setVisible(false);
+        // обновление рабочей области
+        workspace.validate();
+        workspace.repaint();
+    }
+
+    public void unhideWindow(WindowPanel window) {
+        // вкладка на панели задач становится активной
+        window.getAppTabPanel().setTabActive();
+        // отображение окна
+        window.setVisible(true);
+        // обновление рабочей области
+        workspace.validate();
+        workspace.repaint();
+        // после разворачивания окна оно становится активным
+        moveWindowToFront(window);
     }
 
     private void resetWindowsIds() {
@@ -91,6 +126,7 @@ public class WindowsManager implements Serializable {
             resetWindowsIds();
             rearrangeWindows();
         }
+        setupAppTabsActivity(window.getAppTabPanel());
     }
 
     public void repaintAllWindows() {
@@ -106,5 +142,13 @@ public class WindowsManager implements Serializable {
             workspace.setLayer(windows.get(i), i);
             windows.get(i).repaint();
         }
+    }
+
+    // сделать неактивными все вкладки на панели задач, кроме вкладки активного окна
+    private void setupAppTabsActivity(AppTabPanel activeAppTab) {
+        for (WindowPanel window : windows) {
+            window.getAppTabPanel().setTabInactive();
+        }
+        activeAppTab.setTabActive();
     }
 }

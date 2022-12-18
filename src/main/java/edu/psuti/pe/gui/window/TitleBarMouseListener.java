@@ -66,7 +66,7 @@ public class TitleBarMouseListener implements MouseListener {
                 if (isPressedInButtonZone) {
                     ((TitleBarPanel) thisComponent.getParent()).setEnteredIconForMinimizeButton();
                     System.out.println("minimize");
-                    // action
+                    windowsManager.hideWindow((WindowPanel)thisComponent.getParent().getParent());
                     isPressedInButtonZone = false;
                 } else {
                     ((TitleBarPanel) thisComponent.getParent()).setExitedIconForMinimizeButton();

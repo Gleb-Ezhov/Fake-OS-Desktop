@@ -34,7 +34,7 @@ public class WindowPanel extends JPanel implements MouseListener {
     public WindowPanel(String appIconResource, String appTitle, int width, int height) {
         this.appTitle = appTitle;
         this.appIconResource = appIconResource;
-        appTabPanel = new AppTabPanel(appIconResource, appTitle);
+        appTabPanel = new AppTabPanel(appIconResource, appTitle, this);
 
         setupWindow(width, height);
         setupTitleBar();

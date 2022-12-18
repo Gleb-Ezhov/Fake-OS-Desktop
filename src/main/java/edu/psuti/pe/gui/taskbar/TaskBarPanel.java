@@ -1,12 +1,15 @@
 package edu.psuti.pe.gui.taskbar;
 
 import edu.psuti.pe.gui.helper.ImageHelper;
+import edu.psuti.pe.gui.window.WindowsManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class TaskBarPanel {
     private final ImageHelper imageHelper = ImageHelper.getInstance();
+    private final WindowsManager windowsManager = WindowsManager.getInstance(null);
+
     // Главная панель для слоя с панелью задач
     private JPanel mainPanel = new JPanel();
     // Непосредственно панель задач
@@ -61,7 +64,8 @@ public class TaskBarPanel {
     }
 
     public void addAppTabPanel(JPanel appTabPanel) {
-        taskBarPanel.add(appTabPanel, 1);
+        int indexToInsertNewTab = windowsManager.getWindowsCount() + 1;
+        taskBarPanel.add(appTabPanel, indexToInsertNewTab);
         taskBarPanel.validate();
     }
 
