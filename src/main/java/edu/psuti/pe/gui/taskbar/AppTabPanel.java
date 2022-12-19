@@ -96,8 +96,8 @@ public class AppTabPanel extends JPanel {
 
     private void setupTabPanel() {
         tabPanel.setLayout(new BoxLayout(tabPanel, BoxLayout.LINE_AXIS));
-        tabPanel.setOpaque(false);
-        tabPanel.setBackground(Color.cyan);
+        tabPanel.setOpaque(true);
+        tabPanel.setBackground(new Color(193, 201, 208));
 
         tabPanel.setMinimumSize(new Dimension(100, 42));
         tabPanel.setPreferredSize(new Dimension(200, 42));
@@ -136,11 +136,13 @@ public class AppTabPanel extends JPanel {
 
         @Override
         public void mouseEntered(MouseEvent e) {
+            tabPanel.setOpaque(false);
             super.mouseEntered(e);
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
+            tabPanel.setOpaque(true);
             super.mouseExited(e);
         }
     }
