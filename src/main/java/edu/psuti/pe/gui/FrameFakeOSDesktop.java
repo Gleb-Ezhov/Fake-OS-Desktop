@@ -67,7 +67,7 @@ public class FrameFakeOSDesktop extends JFrame {
 
     public void createAndShowGUI() {
         //Create and set up the window.
-        setTitle("desktop prototype");
+        setTitle("Faked ROSA Fresh Desktop KDE Plasma 5");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(1280, 720));
 
