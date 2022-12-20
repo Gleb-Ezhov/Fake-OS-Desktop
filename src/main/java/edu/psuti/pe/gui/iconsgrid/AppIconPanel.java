@@ -1,6 +1,7 @@
 package edu.psuti.pe.gui.iconsgrid;
 
 import edu.psuti.pe.gui.apps.dolphin.Window;
+import edu.psuti.pe.gui.apps.konsole.KonsoleWindow;
 import edu.psuti.pe.gui.window.WindowPanel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
@@ -111,6 +112,9 @@ public class AppIconPanel extends JPanel {
                 if (appName.equals("Dolphin")) {
                     WindowPanel dolphin = new Window(appIconResource, appName, 1000, 500);
                     windowsManager.addWindow(dolphin);
+                } else if (appName.equals("Konsole")) {
+                    WindowPanel konsole = new KonsoleWindow(appIconResource, appName, 600, 400);
+                    windowsManager.addWindow(konsole);
                 } else {
                     WindowPanel testWindow = new WindowPanel(appIconResource, appName, 300, 350);
                     windowsManager.addWindow(testWindow);

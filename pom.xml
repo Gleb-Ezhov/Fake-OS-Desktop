@@ -48,6 +48,7 @@
 
                     <!-- Programs Resources -->
                     <include>dolphin.svg</include>
+                    <include>konsole.svg</include>
 
                     <!-- Title Bar Resources -->
                     <include>window-close.svg</include>
@@ -86,6 +87,7 @@
                     <!-- Fonts -->
                     <include>Hack-Regular.ttf</include>
                     <include>NotoSans-Regular.ttf</include>
+                    <include>RobotoMono-Regular.ttf</include>
                 </includes>
             </resource>
         </resources>
