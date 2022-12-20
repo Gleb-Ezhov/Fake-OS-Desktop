@@ -1,8 +1,10 @@
 package edu.psuti.pe.gui.apps.dolphin;
 
 import edu.psuti.pe.gui.helper.CustomTextLabel;
+import edu.psuti.pe.gui.helper.RoundedBorder;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -72,14 +74,14 @@ public class FilesViewportPanel extends JPanel {
         scrollViewportPane.setPreferredSize(new Dimension(100, 100));
         scrollViewportPane.getVerticalScrollBar().setUnitIncrement(16); // увеличение скорости прокрутки
         scrollViewportPane.setViewportView(viewportPanel); // вьюпорт с файлами становится вьюпортом для панели прокрутки
+        scrollViewportPane.setBorder(new EmptyBorder(0, 0, 0, 0)); // убирается декоративная граница у панели прокрутки
 
         viewportPanel.setLayout(new BoxLayout(viewportPanel, BoxLayout.PAGE_AXIS));
         viewportPanel.setOpaque(true);
         viewportPanel.setBackground(Color.white);
         viewportPanel.addMouseListener(new FilesViewportMouseListener());
         // Размеры для ViewportPanel не проставлялись, чтобы он ресайзился отностельно своих элементов.
-        // Ниже закгруглённая граница, как в Dolphin, но она сейчас не нужна, т.к. ScrollPane сам создал границу.
-        //viewportPanel.setBorder(new RoundedBorder(new Color(175, 178, 180), 6, new Insets(0, 0, 0, 0)));
+        viewportPanel.setBorder(new RoundedBorder(new Color(175, 178, 180), 6, new Insets(0, 0, 0, 0)));
 
         GridBagConstraints viewportConstraints = new GridBagConstraints();
         viewportConstraints.gridx = 0;
