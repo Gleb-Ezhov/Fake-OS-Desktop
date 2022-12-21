@@ -9,8 +9,7 @@ import org.apache.batik.util.SVGConstants;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.URL;
 
 public class ImageHelper implements Serializable {
@@ -105,12 +104,23 @@ public class ImageHelper implements Serializable {
      * @return Готовое Image изображение.
      */
     public Image getSubImageFromBufferedImage(String imageName, int x, int y, int w, int h) {
-        String resultPath = pathPrefixFIS + imageName;
+        String resultPathFIS = pathPrefixFIS + imageName;
+        String resultPathURL = pathPrefixURL + imageName;
 
-        try (FileInputStream fis = new FileInputStream(resultPath)) {
-            BufferedImage buffImg = javax.imageio.ImageIO.read(fis);
+        // этот кусок должен был запускаться из jar
+        try (InputStream in = getClass().getResourceAsStream(resultPathURL)) {
+            BufferedImage buffImg = javax.imageio.ImageIO.read(in);
             buffImg = buffImg.getSubimage(x, y, w, h);
             return buffImg;
+        }
+        catch (FileNotFoundException exc) {
+            // этот кусок запускается из сборки IntelliJ IDEA
+            System.out.println("FileNotFoundException in 'getSubImageFromBufferedImage' method.\nTrying to use the second approach.");
+            try (FileInputStream fis = new FileInputStream(resultPathFIS)) {
+                BufferedImage buffImg = javax.imageio.ImageIO.read(fis);
+                buffImg = buffImg.getSubimage(x, y, w, h);
+                return buffImg;
+            } catch (Exception exc1) { exc1.printStackTrace(); }
         }
         catch (Exception exc) {
             exc.printStackTrace();

@@ -4,7 +4,6 @@ import edu.psuti.pe.gui.helper.ImageHelper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.net.URL;
 
 // Контейнер верхнего уровня (корневой) для окна программы
@@ -37,7 +36,7 @@ public class FrameFakeOSDesktop extends JFrame {
 
             if (imgURL != null) {
                 try {
-                    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(imgURL.toURI())));
+                    ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream(resultPath)));
                 } catch (Exception exc) {
                     exc.printStackTrace();
                 }
