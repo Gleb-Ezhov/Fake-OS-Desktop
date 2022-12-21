@@ -47,6 +47,7 @@
                     <include>user-trash.svg</include>
 
                     <!-- Programs Resources -->
+                    <include>wallpapers1920x1080.png</include>
                     <include>dolphin.svg</include>
                     <include>konsole.svg</include>
 
@@ -95,17 +96,27 @@
         <plugins>
             <!-- Плагин для создания запускаемого джарника в ходе сборки проекта -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
+                <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
                         <manifest>
                             <mainClass>edu.psuti.pe.Main</mainClass>
                         </manifest>
                     </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
