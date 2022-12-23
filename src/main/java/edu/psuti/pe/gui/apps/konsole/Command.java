@@ -22,7 +22,7 @@ public class Command {
 
     public void execute(String cmd) {
 
-        if (!cmd.trim().isEmpty()) {
+        if (!cmd.isEmpty()) {
 
             List<String> values = new ArrayList<>(25);
             if (cmd.contains("\"")) {
@@ -70,5 +70,9 @@ public class Command {
 
     public void send(String cmd) throws IOException {
         runner.write(cmd);
+    }
+
+    public void terminate() {
+        runner.destroy();
     }
 }

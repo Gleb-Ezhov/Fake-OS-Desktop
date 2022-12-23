@@ -5,15 +5,22 @@ import java.util.List;
 import java.util.StringJoiner;
 
 public class ProcessRunner extends Thread {
-
     private List<String> cmds;
     private CommandListener listener;
 
+    private StringJoiner sj;
     private Process process;
 
     public ProcessRunner(CommandListener listener, List<String> cmds) {
         this.cmds = cmds;
         this.listener = listener;
+
+        // Создание строки с исполняемыми командами через пробел
+        sj = new StringJoiner(" ");
+        cmds.stream().forEach((cmd) -> {
+            sj.add(cmd);
+        });
+
         start();
     }
 
@@ -32,15 +39,10 @@ public class ProcessRunner extends Thread {
             // Terminate the stream writer
             reader.join();
 
-            StringJoiner sj = new StringJoiner(" ");
-            cmds.stream().forEach((cmd) -> {
-                sj.add(cmd);
-            });
-
             listener.commandCompleted(sj.toString(), result);
         } catch (Exception exp) {
             exp.printStackTrace();
-            listener.commandFailed(exp);
+            listener.commandFailed(sj.toString());
         }
     }
 
@@ -48,6 +50,12 @@ public class ProcessRunner extends Thread {
         if (process != null && process.isAlive()) {
             process.getOutputStream().write(text.getBytes());
             process.getOutputStream().flush();
+        }
+    }
+
+    public void destroy() {
+        if (process != null && process.isAlive()) {
+            process.destroy();
         }
     }
 }
