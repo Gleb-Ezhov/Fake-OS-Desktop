@@ -1,7 +1,8 @@
 package edu.psuti.pe.gui.iconsgrid;
 
+import edu.psuti.pe.gui.apps.consoles.cmd.CmdWindow;
 import edu.psuti.pe.gui.apps.dolphin.Window;
-import edu.psuti.pe.gui.apps.konsole.KonsoleWindow;
+import edu.psuti.pe.gui.apps.consoles.konsole.KonsoleWindow;
 import edu.psuti.pe.gui.window.WindowPanel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
@@ -51,8 +52,17 @@ public class AppIconPanel extends JPanel {
     }
 
     private void setupIcon(String appIconResource) {
-        JLabel iconLabel = new JLabel(imageHelper.createImageIconFromSvg(appIconResource, "Placeholder App Icon",
-                50, 50));
+        JLabel iconLabel;
+        if (appIconResource.endsWith(".jpg")) {
+            ImageIcon icon = (ImageIcon)imageHelper.createImageIcon(appIconResource, "Placeholder App Icon");
+            Image image = icon.getImage();
+            Image newImg = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+            iconLabel = new JLabel(new ImageIcon(newImg));
+        } else {
+            iconLabel = new JLabel(imageHelper.createImageIconFromSvg(appIconResource, "Placeholder App Icon",
+                    50, 50));
+        }
+
         iconLabel.setOpaque(false);
         iconLabel.setBackground(Color.red);
         iconLabel.setMinimumSize(new Dimension(80, 60));
@@ -115,6 +125,9 @@ public class AppIconPanel extends JPanel {
                 } else if (appName.equals("Konsole")) {
                     WindowPanel konsole = new KonsoleWindow(appIconResource, appName, 800, 470);
                     windowsManager.addWindow(konsole);
+                } else if (appName.equals("Командная строка")) {
+                    WindowPanel cmd = new CmdWindow(appIconResource, appName, 800, 470);
+                    windowsManager.addWindow(cmd);
                 } else {
                     WindowPanel testWindow = new WindowPanel(appIconResource, appName, 300, 350);
                     windowsManager.addWindow(testWindow);

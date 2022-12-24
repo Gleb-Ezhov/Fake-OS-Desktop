@@ -82,8 +82,15 @@ public class TitleBarPanel extends JPanel implements MouseListener {
         appIconPanel.setMaximumSize(new Dimension(29, 29));
         appIconPanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
 
-        appIconLabel.setIcon(imageHelper.createImageIconFromSvg(appIconResource, "App Icon",
-                21, 21));
+        if (appIconResource.endsWith(".jpg")) {
+            ImageIcon icon = (ImageIcon)imageHelper.createImageIcon(appIconResource, appTitle);
+            Image image = icon.getImage();
+            Image newImg = image.getScaledInstance(21, 21, Image.SCALE_SMOOTH);
+            appIconLabel.setIcon(new ImageIcon(newImg));
+        } else {
+            appIconLabel.setIcon(imageHelper.createImageIconFromSvg(appIconResource, appTitle,
+                    21, 21));
+        }
 
         appIconPanel.add(appIconLabel);
     }

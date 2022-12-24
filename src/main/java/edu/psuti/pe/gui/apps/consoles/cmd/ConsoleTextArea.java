@@ -1,4 +1,6 @@
-package edu.psuti.pe.gui.apps.konsole;
+package edu.psuti.pe.gui.apps.consoles.cmd;
+
+import edu.psuti.pe.gui.apps.consoles.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,11 +17,12 @@ import java.util.logging.Logger;
 
 // Компонент прокручиваемой области консоли
 public class ConsoleTextArea extends JScrollPane implements CommandListener, Terminal {
-    String prependLine = "user@rosa2021 ~ $ ";
-    String[] validCommands = {"traceroute", "netstat", "ping", "ip", "ifconfig", "nslookup", "clear", "help", "info"};
-    String[] validInfoOptions = {"traceroute", "netstat", "ping", "ip", "ifconfig", "nslookup", "clear"};
-    String helpText = "\nКомандный процессор поддерживает перечисленные ниже команды.\n\ntraceroute\nnetstat\nping\nip\nifconfig\nnslookup\nclear\n\n" +
-            "Чтобы вывести подробную справку по команде, введите \"info команда\".";
+    String prependLine = "C:\\Users\\user>";
+    String[] validCommands = {"tracert", "netstat", "ping", "ipconfig", "nslookup", "cls", "help"};
+    // опции для help остаются как для Linux, т.к. к этому моменту произошла подмена названий команд на линуксовские
+    String[] validInfoOptions = {"traceroute", "netstat", "ping", "ifconfig", "nslookup", "clear"};
+    String helpText = "\nКомандный процессор поддерживает перечисленные ниже команды.\n\ntracert\nnetstat\nping\nipconfig\nnslookup\ncls\n\n" +
+            "Для получения сведений об определенной команде наберите HELP <имя команды>";
 
     private int userInputStart = 0;
     private Command cmd;
@@ -47,8 +50,8 @@ public class ConsoleTextArea extends JScrollPane implements CommandListener, Ter
         textArea.setForeground(Color.white);
         textArea.setLineWrap(true);
         textArea.setTabSize(4); // можно вообще отключить
-        textArea.setFont(new Font("Roboto Mono Regular", Font.PLAIN, 18));
-        textArea.setText("Введите \"help\" для доступа к справке по командам.\n\n");
+        textArea.setFont(new Font("Consolas", Font.PLAIN, 15));
+        textArea.setText("Введите \"help\" для получения доступа к справке по командам.\n\n");
         appendText(prependLine);
 
         // Привязка кастомного DocumentFilter'а, который не даёт редактировать ранее выведенный командами текст
@@ -94,6 +97,7 @@ public class ConsoleTextArea extends JScrollPane implements CommandListener, Ter
                 else commandFailed(text);
                 return;
             }
+            text = rebuildCommandToLinuxOne(text, findedEntry); // команда пересобирается под терминал линукса
 
             // Выполняется вывод для команд help и info, если были введены именно они
             if (findedEntry.contentEquals("help")) {
@@ -113,7 +117,7 @@ public class ConsoleTextArea extends JScrollPane implements CommandListener, Ter
 
                 if (!isThereValidOption) {
                     oldEnterAction.actionPerformed(e);
-                    appendText("info: нет справки для команды " + text.substring(5) + "\n" + prependLine);
+                    appendText("help: нет справки для команды " + text.substring(5) + "\n" + prependLine);
                     return;
                 }
             } else if (findedEntry.contentEquals("clear")) {
@@ -144,11 +148,47 @@ public class ConsoleTextArea extends JScrollPane implements CommandListener, Ter
     private boolean isValidCommand(String enteredLine) {
         for (String entry : validCommands) {
             if (enteredLine.startsWith(entry)) {
-                findedEntry = entry;
+                // найденное вхождение команды заменяется на её линуксовский вариант
+                findedEntry = replaceCommandToLinuxOne(entry, enteredLine.length());
                 return true;
             }
         }
         return false;
+    }
+
+    private String replaceCommandToLinuxOne(String cmdCommand, int initialCommandSize) {
+        switch (cmdCommand) {
+            case "tracert":
+                return "traceroute";
+            case "ipconfig":
+                return "ifconfig";
+            case "cls":
+                return "clear";
+            case "help":
+                if (initialCommandSize != 4) return "info";
+            default:
+                return cmdCommand;
+        }
+    }
+
+    private String rebuildCommandToLinuxOne(String initialCommand, String findedEntry) {
+        StringBuilder sb = new StringBuilder(initialCommand);
+
+        // Если это была команда info с опцией, то она заменяется на линуксовскую версию
+        if (findedEntry.contentEquals("info") && initialCommand.length() > 4) {
+            String optionForInfo = initialCommand.substring(5);
+            optionForInfo = replaceCommandToLinuxOne(optionForInfo, optionForInfo.length());
+            sb.replace(5, initialCommand.length(), optionForInfo);
+        }
+
+        // Замена команды на уже известный findedEntry с командой линукса
+        if (!initialCommand.contains(" ")) {
+            sb.replace(0, initialCommand.length(), findedEntry);
+        } else {
+            sb.replace(0, sb.indexOf(" "), findedEntry);
+        }
+
+        return sb.toString();
     }
 
     private void setProtectedDocumentFilter() {
@@ -171,7 +211,8 @@ public class ConsoleTextArea extends JScrollPane implements CommandListener, Ter
 
     @Override
     public void commandFailed(String text) {
-        SwingUtilities.invokeLater(new AppendTask(this, "bash: " + text + ": команда не найдена\n" + prependLine));
+        SwingUtilities.invokeLater(new AppendTask(this, "\"" + text +  "\" не является внутренней или внешней " +
+                "командой, исполняемой программой или пакетным файлом.\n\n" + prependLine));
     }
 
     @Override

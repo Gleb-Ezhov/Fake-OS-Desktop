@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui.apps.konsole;
+package edu.psuti.pe.gui.apps.consoles.konsole;
 
 import edu.psuti.pe.gui.window.WindowPanel;
 

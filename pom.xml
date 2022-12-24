@@ -50,6 +50,8 @@
                     <include>wallpapers1920x1080.png</include>
                     <include>dolphin.svg</include>
                     <include>konsole.svg</include>
+                    <include>cmd.jpg</include>
+                    <include>cmd.svg</include>
 
                     <!-- Title Bar Resources -->
                     <include>window-close.svg</include>
@@ -89,6 +91,7 @@
                     <include>Hack-Regular.ttf</include>
                     <include>NotoSans-Regular.ttf</include>
                     <include>RobotoMono-Regular.ttf</include>
+                    <include>Consolas.ttf</include>
                 </includes>
             </resource>
         </resources>

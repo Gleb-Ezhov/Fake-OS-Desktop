@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui.apps.konsole;
+package edu.psuti.pe.gui.apps.consoles;
 
 public class AppendTask implements Runnable {
     private Terminal terminal;

@@ -32,8 +32,10 @@ public class IconsGridPanel extends JPanel {
         AppIconPanel iconStart = new AppIconPanel("start.svgz", "Placeholder App Icon");
         AppIconPanel iconDolphin = new AppIconPanel("dolphin.svg", "Dolphin");
         AppIconPanel iconKonsole = new AppIconPanel("konsole.svg", "Konsole");
+        AppIconPanel iconCmd = new AppIconPanel("cmd.jpg", "Командная строка");
         ((Container)gridPanel.getComponent(cols * 0)).add(iconStart);
         ((Container)gridPanel.getComponent(cols * 1)).add(iconDolphin);
         ((Container)gridPanel.getComponent(cols * 2)).add(iconKonsole);
+        ((Container)gridPanel.getComponent(cols * 3)).add(iconCmd);
     }
 }
