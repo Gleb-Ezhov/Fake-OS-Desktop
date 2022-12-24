@@ -65,8 +65,15 @@ public class AppTabPanel extends JPanel {
         iconPanel.setMaximumSize(new Dimension(42, 42));
         iconPanel.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
 
-        iconLabel.setIcon(imageHelper.createImageIconFromSvg(appIconResource, appTitle + "tab",
-                30, 30));
+        if (appIconResource.endsWith(".jpg")) {
+            ImageIcon icon = (ImageIcon)imageHelper.createImageIcon(appIconResource, appTitle + "tab");
+            Image image = icon.getImage();
+            Image newImg = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            iconLabel.setIcon(new ImageIcon(newImg));
+        } else {
+            iconLabel.setIcon(imageHelper.createImageIconFromSvg(appIconResource, appTitle + "tab",
+                    30, 30));
+        }
 
         iconPanel.add(iconLabel);
     }

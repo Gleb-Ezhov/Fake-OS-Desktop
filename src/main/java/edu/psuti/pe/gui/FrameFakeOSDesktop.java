@@ -28,7 +28,7 @@ public class FrameFakeOSDesktop extends JFrame {
 
     private void registerRequiredFonts() {
         String pathPrefixURL = "/"; // для URL
-        String[] ttfNames = new String[]{ "Hack-Regular.ttf", "NotoSans-Regular.ttf", "RobotoMono-Regular.ttf" };
+        String[] ttfNames = new String[]{ "Hack-Regular.ttf", "NotoSans-Regular.ttf", "RobotoMono-Regular.ttf", "Consolas.ttf" };
 
         for (String name : ttfNames) {
             String resultPath = pathPrefixURL + name;

@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui.apps.konsole;
+package edu.psuti.pe.gui.apps.consoles;
 
 public interface CommandListener {
     void commandOutput(String text);

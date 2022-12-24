@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui.apps.konsole;
+package edu.psuti.pe.gui.apps.consoles;
 
 import java.io.BufferedReader;
 import java.io.IOException;

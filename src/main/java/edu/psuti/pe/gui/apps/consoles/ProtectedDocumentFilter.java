@@ -1,4 +1,4 @@
-package edu.psuti.pe.gui.apps.konsole;
+package edu.psuti.pe.gui.apps.consoles;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
