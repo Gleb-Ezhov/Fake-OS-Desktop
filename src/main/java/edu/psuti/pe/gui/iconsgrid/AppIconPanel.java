@@ -113,7 +113,7 @@ public class AppIconPanel extends JPanel {
                     WindowPanel dolphin = new Window(appIconResource, appName, 1000, 500);
                     windowsManager.addWindow(dolphin);
                 } else if (appName.equals("Konsole")) {
-                    WindowPanel konsole = new KonsoleWindow(appIconResource, appName, 600, 400);
+                    WindowPanel konsole = new KonsoleWindow(appIconResource, appName, 800, 470);
                     windowsManager.addWindow(konsole);
                 } else {
                     WindowPanel testWindow = new WindowPanel(appIconResource, appName, 300, 350);
