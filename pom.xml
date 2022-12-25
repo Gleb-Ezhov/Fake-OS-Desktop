@@ -6,7 +6,7 @@
 
     <groupId>edu.psuti.pe</groupId>
     <artifactId>fake-os-desktop</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,6 +20,12 @@
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-all</artifactId>
             <version>1.15</version>
+        </dependency>
+        <!-- Библиотека для получения сведений об аппаратном обеспечении системы -->
+        <dependency>
+            <groupId>org.jhardware</groupId>
+            <artifactId>jHardware</artifactId>
+            <version>0.8.6</version>
         </dependency>
         <!-- Расширения для Swing GUI toolkit в виде новых и улучшенных компонентов -->
         <!--
@@ -52,6 +58,8 @@
                     <include>konsole.svg</include>
                     <include>cmd.jpg</include>
                     <include>cmd.svg</include>
+                    <include>hwinfo.svg</include>
+                    <include>penguin.svg</include>
 
                     <!-- Title Bar Resources -->
                     <include>window-close.svg</include>
@@ -86,6 +94,12 @@
                     <include>dolphin/video.svg</include>
                     <include>dolphin/folder.svg</include>
                     <include>dolphin/file.svg</include>
+
+                    <!-- Device Manager resources -->
+                    <include>devicemanager/cpu.svg</include>
+                    <include>devicemanager/hdd.svg</include>
+                    <include>devicemanager/media-flash.svg</include>
+                    <include>devicemanager/network.svg</include>
 
                     <!-- Fonts -->
                     <include>Hack-Regular.ttf</include>
