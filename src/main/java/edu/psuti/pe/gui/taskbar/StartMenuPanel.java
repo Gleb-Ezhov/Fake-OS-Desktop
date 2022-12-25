@@ -84,5 +84,6 @@ public class StartMenuPanel extends JPanel {
         add(new StartMenuItemPanel("Konsole", "konsole.svg", parent));
         add(new StartMenuItemPanel("Командная строка", "cmd.jpg", parent));
         add(new StartMenuItemPanel("Диспетчер устройств", "hwinfo.svg", parent));
+        add(new StartMenuItemPanel("About", "about.svg", parent));
     }
 }

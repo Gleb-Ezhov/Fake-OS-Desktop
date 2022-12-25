@@ -1,5 +1,6 @@
 package edu.psuti.pe.gui.taskbar;
 
+import edu.psuti.pe.gui.apps.about.AboutAppWindow;
 import edu.psuti.pe.gui.apps.consoles.cmd.CmdWindow;
 import edu.psuti.pe.gui.apps.consoles.konsole.KonsoleWindow;
 import edu.psuti.pe.gui.apps.devicemanager.DeviceManagerWindow;
@@ -116,6 +117,9 @@ public class StartMenuItemPanel extends JPanel {
             } else if (appName.equals("Диспетчер устройств")) {
                 WindowPanel deviceManager = new DeviceManagerWindow(imageResource, appName, 800, 510);
                 windowsManager.addWindow(deviceManager);
+            } else if (appName.equals("About")) {
+                WindowPanel aboutWindow = new AboutAppWindow(imageResource, appName, 400, 400);
+                windowsManager.addWindow(aboutWindow);
             } else {
                 WindowPanel testWindow = new WindowPanel(imageResource, appName, 300, 350);
                 windowsManager.addWindow(testWindow);
