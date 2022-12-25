@@ -5,6 +5,7 @@ import edu.psuti.pe.gui.window.WindowsManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class TaskBarPanel {
     private final ImageHelper imageHelper = ImageHelper.getInstance();
@@ -12,6 +13,9 @@ public class TaskBarPanel {
 
     // Главная панель для слоя с панелью задач
     private JPanel mainPanel = new JPanel();
+    // Панель "Меню запуска приложений"
+    private StartMenuPanel startMenuPanel = new StartMenuPanel(this);
+    JPanel helperPanel; // вспомогательная панель для выравнивания "Меню запуска приложений"
     // Непосредственно панель задач
     private JPanel taskBarPanel = new JPanel();
     // Панель для кнопки запуска "Меню приложений"
@@ -28,11 +32,12 @@ public class TaskBarPanel {
     // Виджет "Состояние и уведомления"
     StatusAndNotificationsWidgetPanel sttsAndNtfctnsWidget = new StatusAndNotificationsWidgetPanel();
 
+    boolean isStartMenuActivated = false;
+
     public TaskBarPanel() {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
         mainPanel.setOpaque(false);
         mainPanel.setBackground(Color.GREEN);
-        //mainPanel.setBounds(0, 0, 1280, 720);
 
         // BoxLayout.LINE_AXIS включает режим компоновки элементов "слева направо"
         taskBarPanel.setLayout(new BoxLayout(taskBarPanel, BoxLayout.LINE_AXIS));
@@ -45,6 +50,11 @@ public class TaskBarPanel {
         setupStartButtonPanel();
         setupSystemSettingsBtnPanel();
         setupTrashBinBtnPanel();
+        helperPanel = new JPanel(); // Панель, помогающая разместить меню по левому краю
+        helperPanel.setLayout(new BoxLayout(helperPanel, BoxLayout.LINE_AXIS));
+        helperPanel.setOpaque(false);
+        helperPanel.add(startMenuPanel);
+        helperPanel.add(Box.createHorizontalGlue());
 
         // Добавление всех дочерних элементов в панель задач
         taskBarPanel.add(startButtonPanel);
@@ -63,6 +73,20 @@ public class TaskBarPanel {
         return mainPanel;
     }
 
+    public void activateStartMenuPanel() {
+        mainPanel.add(helperPanel, 1);
+        mainPanel.validate();
+        mainPanel.repaint();
+        isStartMenuActivated = true;
+    }
+
+    public void deactivateStartMenuPanel() {
+        mainPanel.remove(helperPanel);
+        mainPanel.validate();
+        mainPanel.repaint();
+        isStartMenuActivated = false;
+    }
+
     public void addAppTabPanel(JPanel appTabPanel) {
         int indexToInsertNewTab = windowsManager.getWindowsCount() + 1;
         taskBarPanel.add(appTabPanel, indexToInsertNewTab);
@@ -78,6 +102,7 @@ public class TaskBarPanel {
         startButtonPanel.setOpaque(false);
         startButtonPanel.addMouseListener(new TaskBarMouseListener());
         startButtonPanel.setLayout(new BoxLayout(startButtonPanel, BoxLayout.PAGE_AXIS));
+        startButtonPanel.addMouseListener(new StartButtonPanelMouseListener());
 
         startButtonPanel.setMinimumSize(new Dimension(45, 45));
         startButtonPanel.setPreferredSize(new Dimension(45, 45));
@@ -120,5 +145,37 @@ public class TaskBarPanel {
                 35, 35));
 
         trashBinBtnPanel.add(trashBinBtnLabel);
+    }
+
+    class StartButtonPanelMouseListener extends TaskBarMouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            super.mousePressed(e);
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            super.mouseReleased(e);
+            if (isStartMenuActivated) {
+                deactivateStartMenuPanel();
+            } else {
+                activateStartMenuPanel();
+            }
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            super.mouseEntered(e);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            super.mouseExited(e);
+        }
     }
 }

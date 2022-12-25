@@ -56,12 +56,12 @@ public class AppIconPanel extends JPanel {
     private void setupIcon(String appIconResource) {
         JLabel iconLabel;
         if (appIconResource.endsWith(".jpg")) {
-            ImageIcon icon = (ImageIcon)imageHelper.createImageIcon(appIconResource, "Placeholder App Icon");
+            ImageIcon icon = (ImageIcon)imageHelper.createImageIcon(appIconResource, appName);
             Image image = icon.getImage();
             Image newImg = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
             iconLabel = new JLabel(new ImageIcon(newImg));
         } else {
-            iconLabel = new JLabel(imageHelper.createImageIconFromSvg(appIconResource, "Placeholder App Icon",
+            iconLabel = new JLabel(imageHelper.createImageIconFromSvg(appIconResource, appName,
                     50, 50));
         }
 
