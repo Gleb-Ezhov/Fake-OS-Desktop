@@ -29,15 +29,15 @@ public class IconsGridPanel extends JPanel {
         }
 
         // В соответствующие тайлы добавляются ярлыки стандартных приложений
-        AppIconPanel iconStart = new AppIconPanel("start.svgz", "Placeholder App Icon");
+        AppIconPanel iconAbout = new AppIconPanel("about.svg", "About");
         AppIconPanel iconDolphin = new AppIconPanel("dolphin.svg", "Dolphin");
         AppIconPanel iconKonsole = new AppIconPanel("konsole.svg", "Konsole");
         AppIconPanel iconCmd = new AppIconPanel("cmd.jpg", "Командная строка");
         AppIconPanel iconDeviceManager = new AppIconPanel("hwinfo.svg", "Диспетчер устройств");
-        ((Container)gridPanel.getComponent(cols * 0)).add(iconStart);
-        ((Container)gridPanel.getComponent(cols * 1)).add(iconDolphin);
-        ((Container)gridPanel.getComponent(cols * 2)).add(iconKonsole);
-        ((Container)gridPanel.getComponent(cols * 3)).add(iconCmd);
-        ((Container)gridPanel.getComponent(cols * 4)).add(iconDeviceManager);
+        ((Container)gridPanel.getComponent(1)).add(iconAbout);
+        ((Container)gridPanel.getComponent(cols * 0)).add(iconDolphin);
+        ((Container)gridPanel.getComponent(cols * 1)).add(iconKonsole);
+        ((Container)gridPanel.getComponent(cols * 2)).add(iconCmd);
+        ((Container)gridPanel.getComponent(cols * 3)).add(iconDeviceManager);
     }
 }

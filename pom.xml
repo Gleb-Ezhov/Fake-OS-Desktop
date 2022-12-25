@@ -6,7 +6,7 @@
 
     <groupId>edu.psuti.pe</groupId>
     <artifactId>fake-os-desktop</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -61,6 +61,7 @@
                     <include>cmd.svg</include>
                     <include>hwinfo.svg</include>
                     <include>penguin.svg</include>
+                    <include>about.svg</include>
 
                     <!-- Title Bar Resources -->
                     <include>window-close.svg</include>
@@ -101,6 +102,11 @@
                     <include>devicemanager/hdd.svg</include>
                     <include>devicemanager/media-flash.svg</include>
                     <include>devicemanager/network.svg</include>
+
+                    <!-- About App Resources -->
+                    <include>about/group.svg</include>
+                    <include>about/java.svg</include>
+                    <include>about/student.svg</include>
 
                     <!-- Fonts -->
                     <include>Hack-Regular.ttf</include>

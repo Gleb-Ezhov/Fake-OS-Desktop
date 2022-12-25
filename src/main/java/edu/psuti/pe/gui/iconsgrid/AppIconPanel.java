@@ -1,5 +1,6 @@
 package edu.psuti.pe.gui.iconsgrid;
 
+import edu.psuti.pe.gui.apps.about.AboutAppWindow;
 import edu.psuti.pe.gui.apps.consoles.cmd.CmdWindow;
 import edu.psuti.pe.gui.apps.devicemanager.DeviceManagerWindow;
 import edu.psuti.pe.gui.apps.dolphin.Window;
@@ -8,7 +9,6 @@ import edu.psuti.pe.gui.window.WindowPanel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
 import edu.psuti.pe.gui.window.WindowsManager;
-import org.apache.batik.svggen.font.table.Device;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -133,9 +133,9 @@ public class AppIconPanel extends JPanel {
                 } else if (appName.equals("Диспетчер устройств")) {
                     WindowPanel deviceManager = new DeviceManagerWindow(appIconResource, appName, 800, 510);
                     windowsManager.addWindow(deviceManager);
-                } else {
-                    WindowPanel testWindow = new WindowPanel(appIconResource, appName, 300, 350);
-                    windowsManager.addWindow(testWindow);
+                } else if (appName.equals("About")) {
+                    WindowPanel aboutWindow = new AboutAppWindow(appIconResource, appName, 400, 400);
+                    windowsManager.addWindow(aboutWindow);
                 }
             }
         }
