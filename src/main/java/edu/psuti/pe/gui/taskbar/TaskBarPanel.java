@@ -31,6 +31,8 @@ public class TaskBarPanel {
     SystemBlockShutdownWidgetPanel blockOffWidget = new SystemBlockShutdownWidgetPanel();
     // Виджет "Состояние и уведомления"
     StatusAndNotificationsWidgetPanel sttsAndNtfctnsWidget = new StatusAndNotificationsWidgetPanel();
+    // Виджет "Цифровые часы"
+    DateTimeWidgetPanel dateTimeWidgetPanel = new DateTimeWidgetPanel();
 
     boolean isStartMenuActivated = false;
 
@@ -62,6 +64,7 @@ public class TaskBarPanel {
         taskBarPanel.add(systemSettingsBtnPanel);
         taskBarPanel.add(trashBinBtnPanel);
         taskBarPanel.add(sttsAndNtfctnsWidget);
+        taskBarPanel.add(dateTimeWidgetPanel);
         taskBarPanel.add(blockOffWidget.getPanel());
 
         // Набивка главной панели заполнителем и добавление вниз контейнера панели задач
