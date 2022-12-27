@@ -90,31 +90,6 @@ public class ToolbarPanel extends JPanel {
         splitViewportBtnPanel = new ToolbarButtonPanel("view-right-new.svg", "Split viewport into two panes", ToolbarButtonType.SPLIT, this);
         searchFilesBtnPanel = new ToolbarButtonPanel("edit-find.svg", "Search for files and folders", ToolbarButtonType.SEARCH, this);
         toolbarMenuBtnPanel = new ToolbarButtonPanel("application-menu.svg", "Open toolbar menu", ToolbarButtonType.MENU, this);
-
-//        setupToolbarButton(goPreviousBtnPanel, goPreviousBtnLabel, "go-previous.svg", "Go Previous");
-//        setupToolbarButton(goNextBtnPanel, goNextBtnLabel, "go-next.svg", "Go Next");
-//        setupToolbarButton(iconsBtnPanel, iconsBtnLabel, "view-list-icons.svg", "Icons view of files");
-//        setupToolbarButton(columnsBtnPanel, columnsBtnLabel, "view-list-details.svg", "Columns view of files");
-//        setupToolbarButton(tableBtnPanel, tableBtnLabel, "view-list-tree.svg", "Table view of files");
-//        setupToolbarButton(splitViewportBtnPanel, splitViewportBtnLabel, "view-right-new.svg", "Split viewport into two panes");
-//        setupToolbarButton(searchFilesBtnPanel, searchFilesBtnLabel, "edit-find.svg", "Search for files and folders");
-//        setupToolbarButton(toolbarMenuBtnPanel, toolbarMenuBtnLabel, "application-menu.svg", "Open toolbar menu");
-    }
-
-    private void setupToolbarButton(JPanel panel, JLabel label, String imageName, String imageDescription) {
-        panel.setOpaque(false);
-        //panel.addMouseListener(new ToolbarButtonMouseListener());
-        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-
-        panel.setMinimumSize(new Dimension(34, 34));
-        panel.setPreferredSize(new Dimension(34, 34));
-        panel.setMaximumSize(new Dimension(34, 34));
-        panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        label.setIcon(imageHelper.createImageIconFromSvg(imageName,
-                imageDescription, 24, 24));
-
-        panel.add(label);
     }
 
     private void setupDelimiterPanel() {
