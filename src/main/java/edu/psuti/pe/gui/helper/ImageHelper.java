@@ -94,7 +94,7 @@ public class ImageHelper implements Serializable {
     }
 
     /**
-     * Получение Image изображения по его именя из resources с возможностью
+     * Получение Image изображения по его имени из resources с возможностью
      * вырезать из него нужную прямоугольную область.
      * @param imageName Название ресурса.
      * @param x Левый верхний угол - x

@@ -2,7 +2,6 @@ package edu.psuti.pe.gui.window;
 
 import edu.psuti.pe.gui.helper.CustomTextLabel;
 import edu.psuti.pe.gui.helper.ImageHelper;
-import edu.psuti.pe.gui.helper.RoundedBorder;
 
 import javax.swing.*;
 import java.awt.*;

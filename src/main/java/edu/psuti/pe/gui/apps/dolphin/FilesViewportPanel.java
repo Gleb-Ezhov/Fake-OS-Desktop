@@ -23,8 +23,7 @@ public class FilesViewportPanel extends JPanel {
     private JPanel viewportPanel = new JPanel(); // панель с самим списком файлов
     // панель краткой информации внизу окна
     private JPanel viewportStatePanel = new JPanel();
-    private CustomTextLabel viewportStateLabel = new CustomTextLabel("placeholder text",
-            new Font("Noto Sans Regular", Font.PLAIN, 13), "black", false, 0, JLabel.CENTER, JLabel.LEFT);
+    private CustomTextLabel viewportStateLabel;
 
     // Список с текущими элементами
     private ArrayList<FilesViewportItemPanel> filesViewportItems = new ArrayList<>(100);
@@ -161,7 +160,7 @@ public class FilesViewportPanel extends JPanel {
         viewportStatePanel.setPreferredSize(new Dimension(200, 25));
         viewportStatePanel.setMaximumSize(new Dimension(200, 25));
 
-        viewportStateLabel = new CustomTextLabel("placeholder text", new Font("Noto Sans Regular", Font.PLAIN, 13),
+        viewportStateLabel = new CustomTextLabel("", new Font("Noto Sans Regular", Font.PLAIN, 13),
                 "black", false, 0,
                 JLabel.CENTER, JLabel.LEFT);
         viewportStatePanel.add(Box.createHorizontalStrut(8));
