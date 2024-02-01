@@ -1,19 +1,15 @@
 package edu.psuti.pe.gui.iconsgrid;
 
-import edu.psuti.pe.gui.apps.about.AboutAppWindow;
-import edu.psuti.pe.gui.apps.consoles.cmd.CmdWindow;
-import edu.psuti.pe.gui.apps.devicemanager.DeviceManagerWindow;
-import edu.psuti.pe.gui.apps.dolphin.Window;
-import edu.psuti.pe.gui.apps.consoles.konsole.KonsoleWindow;
-import edu.psuti.pe.gui.window.WindowPanel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
-import edu.psuti.pe.gui.window.WindowsManager;
+import edu.psuti.pe.gui.window.WindowCreator;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.dnd.*;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureRecognizer;
+import java.awt.dnd.DragSource;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.Serializable;
@@ -21,7 +17,7 @@ import java.io.Serializable;
 // Панель иконки-ярлыка
 public class AppIconPanel extends JPanel {
     ImageHelper imageHelper = ImageHelper.getInstance();
-    WindowsManager windowsManager = WindowsManager.getInstance(null);
+    WindowCreator windowCreator = WindowCreator.getInstance();
 
     JPanel icon = new JPanel(new BorderLayout());
     JPanel name = new JPanel(new BorderLayout());
@@ -121,22 +117,7 @@ public class AppIconPanel extends JPanel {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && SwingUtilities.isLeftMouseButton(e)) {
                 System.out.println("AppIconPanel double clicked.");
-                if (appName.equals("Dolphin")) {
-                    WindowPanel dolphin = new Window(appIconResource, appName, 1000, 500);
-                    windowsManager.addWindow(dolphin);
-                } else if (appName.equals("Konsole")) {
-                    WindowPanel konsole = new KonsoleWindow(appIconResource, appName, 800, 470);
-                    windowsManager.addWindow(konsole);
-                } else if (appName.equals("Командная строка")) {
-                    WindowPanel cmd = new CmdWindow(appIconResource, appName, 800, 470);
-                    windowsManager.addWindow(cmd);
-                } else if (appName.equals("Диспетчер устройств")) {
-                    WindowPanel deviceManager = new DeviceManagerWindow(appIconResource, appName, 800, 510);
-                    windowsManager.addWindow(deviceManager);
-                } else if (appName.equals("About")) {
-                    WindowPanel aboutWindow = new AboutAppWindow(appIconResource, appName, 400, 400);
-                    windowsManager.addWindow(aboutWindow);
-                }
+                windowCreator.createWindow(appIconResource, appName);
             }
         }
 
