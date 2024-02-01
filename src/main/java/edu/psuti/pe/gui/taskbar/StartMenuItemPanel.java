@@ -1,15 +1,9 @@
 package edu.psuti.pe.gui.taskbar;
 
-import edu.psuti.pe.gui.apps.about.AboutAppWindow;
-import edu.psuti.pe.gui.apps.consoles.cmd.CmdWindow;
-import edu.psuti.pe.gui.apps.consoles.konsole.KonsoleWindow;
-import edu.psuti.pe.gui.apps.devicemanager.DeviceManagerWindow;
-import edu.psuti.pe.gui.apps.dolphin.Window;
 import edu.psuti.pe.gui.helper.CustomTextLabel;
 import edu.psuti.pe.gui.helper.ImageHelper;
 import edu.psuti.pe.gui.helper.RoundedBorder;
-import edu.psuti.pe.gui.window.WindowPanel;
-import edu.psuti.pe.gui.window.WindowsManager;
+import edu.psuti.pe.gui.window.WindowCreator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +12,7 @@ import java.awt.event.MouseListener;
 
 public class StartMenuItemPanel extends JPanel {
     private final ImageHelper imageHelper = ImageHelper.getInstance();
-    WindowsManager windowsManager = WindowsManager.getInstance(null);
+    WindowCreator windowCreator = WindowCreator.getInstance();
 
     private JLabel iconLabel;
     private JPanel textPanel = new JPanel();
@@ -105,26 +99,7 @@ public class StartMenuItemPanel extends JPanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (appName.equals("Dolphin")) {
-                WindowPanel dolphin = new Window(imageResource, appName, 1000, 500);
-                windowsManager.addWindow(dolphin);
-            } else if (appName.equals("Konsole")) {
-                WindowPanel konsole = new KonsoleWindow(imageResource, appName, 800, 470);
-                windowsManager.addWindow(konsole);
-            } else if (appName.equals("Командная строка")) {
-                WindowPanel cmd = new CmdWindow(imageResource, appName, 800, 470);
-                windowsManager.addWindow(cmd);
-            } else if (appName.equals("Диспетчер устройств")) {
-                WindowPanel deviceManager = new DeviceManagerWindow(imageResource, appName, 800, 510);
-                windowsManager.addWindow(deviceManager);
-            } else if (appName.equals("About")) {
-                WindowPanel aboutWindow = new AboutAppWindow(imageResource, appName, 400, 200);
-                windowsManager.addWindow(aboutWindow);
-            } else {
-                WindowPanel testWindow = new WindowPanel(imageResource, appName, 300, 350);
-                windowsManager.addWindow(testWindow);
-            }
-
+            windowCreator.createWindow(imageResource, appName);
             mouseEntered(e);
             taskBarPanel.deactivateStartMenuPanel();
         }
