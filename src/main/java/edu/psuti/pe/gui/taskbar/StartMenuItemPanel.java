@@ -118,7 +118,7 @@ public class StartMenuItemPanel extends JPanel {
                 WindowPanel deviceManager = new DeviceManagerWindow(imageResource, appName, 800, 510);
                 windowsManager.addWindow(deviceManager);
             } else if (appName.equals("About")) {
-                WindowPanel aboutWindow = new AboutAppWindow(imageResource, appName, 400, 400);
+                WindowPanel aboutWindow = new AboutAppWindow(imageResource, appName, 400, 200);
                 windowsManager.addWindow(aboutWindow);
             } else {
                 WindowPanel testWindow = new WindowPanel(imageResource, appName, 300, 350);
