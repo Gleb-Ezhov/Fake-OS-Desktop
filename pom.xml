@@ -124,7 +124,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>edu.psuti.pe.Main</mainClass>
+                            <mainClass>com.fosdapp.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
