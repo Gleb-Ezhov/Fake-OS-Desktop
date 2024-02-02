@@ -1,7 +1,6 @@
 package com.fosdapp.gui.apps.consoles.konsole;
 
 import com.fosdapp.gui.apps.consoles.*;
-import edu.psuti.pe.gui.apps.consoles.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
