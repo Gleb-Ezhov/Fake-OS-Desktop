@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.psuti.pe</groupId>
+    <groupId>com.fosdapp</groupId>
     <artifactId>fake-os-desktop</artifactId>
     <version>1.1.0</version>
 
@@ -15,30 +15,22 @@
     </properties>
 
     <dependencies>
-        <!-- Apache Batik для перекодирования SVG изображений -->
+        <!-- Apache Batik for SVG images transcoding -->
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-all</artifactId>
             <version>1.16</version>
         </dependency>
-        <!-- Библиотека для получения сведений об аппаратном обеспечении системы -->
+        <!-- Library to get current systems' hardware info -->
         <dependency>
             <groupId>org.jhardware</groupId>
             <artifactId>jHardware</artifactId>
             <version>0.8.6</version>
         </dependency>
-        <!-- Расширения для Swing GUI toolkit в виде новых и улучшенных компонентов -->
-        <!--
-        <dependency>
-            <groupId>org.swinglabs</groupId>
-            <artifactId>swingx</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        -->
     </dependencies>
 
     <build>
-        <!-- Перечисление ресурсов, которые должны попасть в сборку -->
+        <!-- Enumerating resources to be included into the build -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -118,7 +110,7 @@
         </resources>
 
         <plugins>
-            <!-- Плагин для создания запускаемого джарника в ходе сборки проекта -->
+            <!-- Plugin to create executable .jar file with the app during project build -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
