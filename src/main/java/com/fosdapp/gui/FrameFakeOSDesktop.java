@@ -18,6 +18,8 @@ public class FrameFakeOSDesktop extends JFrame {
     private static GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
     private static GraphicsDevice device = ge.getScreenDevices()[0];
 
+    private final boolean isFullScreen = false; // true to enable full screen mode
+
     public FrameFakeOSDesktop() {
         System.out.println("Initializing objects...");
         // Порядок вызова методов ИМЕЕТ ЗНАЧЕНИЕ
@@ -72,7 +74,6 @@ public class FrameFakeOSDesktop extends JFrame {
 
         // Display the window.
         pack();
-        boolean isFullScreen = false; // возможно будет вынесен отдельный параметр в GUI для этого
         if (isFullScreen) device.setFullScreenWindow(this);
         setVisible(true);
     }
